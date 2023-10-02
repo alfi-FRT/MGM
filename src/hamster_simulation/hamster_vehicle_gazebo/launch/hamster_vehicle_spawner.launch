@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="agent" default="agent1"/>
+	<arg name="cmd_timeout" default="0.5"/>
+	<arg name="use_joystick" default="false" />
+	<arg name="use_keyboard" default="false" />
+	<arg name="joystick_dev" default="/dev/input/js0"/>
+	<arg name="x" default="0"/>
+	<arg name="y" default="1.0"/>
+	<arg name="is_publishTF" default="true"/>
+	<arg name="tf_target_topic" default="odom/raw"/>
+	<arg name="robot_version" default="V7"/>
+ 
+	<group>
+		<include file="$(find hamster_vehicle_description)/launch/hamster_agent.launch">
+			<arg name="agent" value="$(arg agent)"/>
+			<arg name="x" value="$(arg x)"/>
+			<arg name="y" value="$(arg y)"/>
+			<arg name="robot_version" value="$(arg robot_version)"/>
+			<arg name="is_publishTF" value="$(arg is_publishTF)"/>
+			<arg name="tf_target_topic" value="$(arg tf_target_topic)"/>
+		</include>
+
+		  <group if="$(arg use_joystick)">
+			<include file="$(find hamster_vehicle_gazebo)/launch/joystick.launch">
+			  <arg name="agent" value="$(arg agent)"/>
+			  <arg name="scale_linear" value="2"/>
+			  <arg name="scale_angular" value="0.5"/>
+			  <arg name="dev" value="$(arg joystick_dev)"/>
+			</include>
+		  </group>
+		  
+		 <group if="$(arg use_keyboard)">
+			 <node pkg="hamster_teleop" type="keyboard.py" name="$(arg agent)_keyboard" output="screen">
+				<param name="topic" value="$(arg agent)/ackermann_cmd" />
+				<param name="frame" value="$(arg agent)/base_link" />
+			</node> 
+		 </group>
+		 
+	 </group>
+</launch>

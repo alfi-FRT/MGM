@@ -1,0 +1,2 @@
+hamster_simulation/gazebo_ackermann_drive_plugin:hamster_simulation/hamster_teleop:hamster_simulation/hamster_vehicle:hamster_simulation/hamster_vehicle_gazebo:hamster_vehicle_description
+-DCATKIN_DEVEL_PREFIX=/home/sanyi/MGM/devel -DCMAKE_INSTALL_PREFIX=/home/sanyi/MGM/install -G Unix Makefiles

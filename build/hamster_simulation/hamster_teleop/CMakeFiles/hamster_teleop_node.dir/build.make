@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sanyi/MGM/src
+CMAKE_SOURCE_DIR = /home/gujgidani20/MGM/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sanyi/MGM/build
+CMAKE_BINARY_DIR = /home/gujgidani20/MGM/build
 
 # Include any dependencies generated for this target.
 include hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/depend.make
@@ -58,17 +58,17 @@ include hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/pro
 include hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/flags.make
 
 hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o: hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/flags.make
-hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o: /home/sanyi/MGM/src/hamster_simulation/hamster_teleop/src/joystick_teleop_node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sanyi/MGM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o"
-	cd /home/sanyi/MGM/build/hamster_simulation/hamster_teleop && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o -c /home/sanyi/MGM/src/hamster_simulation/hamster_teleop/src/joystick_teleop_node.cpp
+hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o: /home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop/src/joystick_teleop_node.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/gujgidani20/MGM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o"
+	cd /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o -c /home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop/src/joystick_teleop_node.cpp
 
 hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.i"
-	cd /home/sanyi/MGM/build/hamster_simulation/hamster_teleop && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sanyi/MGM/src/hamster_simulation/hamster_teleop/src/joystick_teleop_node.cpp > CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.i
+	cd /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop/src/joystick_teleop_node.cpp > CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.i
 
 hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.s"
-	cd /home/sanyi/MGM/build/hamster_simulation/hamster_teleop && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sanyi/MGM/src/hamster_simulation/hamster_teleop/src/joystick_teleop_node.cpp -o CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.s
+	cd /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop/src/joystick_teleop_node.cpp -o CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.s
 
 # Object files for target hamster_teleop_node
 hamster_teleop_node_OBJECTS = \
@@ -77,39 +77,39 @@ hamster_teleop_node_OBJECTS = \
 # External object files for target hamster_teleop_node
 hamster_teleop_node_EXTERNAL_OBJECTS =
 
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/build.make
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/libroscpp.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/librosconsole.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/librosconsole_log4cxx.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/librosconsole_backend_interface.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/libxmlrpcpp.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/libroscpp_serialization.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/librostime.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/libcpp_common.so
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
-/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node: hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sanyi/MGM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node"
-	cd /home/sanyi/MGM/build/hamster_simulation/hamster_teleop && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hamster_teleop_node.dir/link.txt --verbose=$(VERBOSE)
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/build.make
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/libroscpp.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/librosconsole.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/librosconsole_log4cxx.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/librosconsole_backend_interface.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/libxmlrpcpp.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/libroscpp_serialization.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/librostime.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /opt/ros/noetic/lib/libcpp_common.so
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node: hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/gujgidani20/MGM/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node"
+	cd /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hamster_teleop_node.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/build: /home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node
+hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/build: /home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node
 
 .PHONY : hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/build
 
 hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/clean:
-	cd /home/sanyi/MGM/build/hamster_simulation/hamster_teleop && $(CMAKE_COMMAND) -P CMakeFiles/hamster_teleop_node.dir/cmake_clean.cmake
+	cd /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop && $(CMAKE_COMMAND) -P CMakeFiles/hamster_teleop_node.dir/cmake_clean.cmake
 .PHONY : hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/clean
 
 hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/depend:
-	cd /home/sanyi/MGM/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sanyi/MGM/src /home/sanyi/MGM/src/hamster_simulation/hamster_teleop /home/sanyi/MGM/build /home/sanyi/MGM/build/hamster_simulation/hamster_teleop /home/sanyi/MGM/build/hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/gujgidani20/MGM/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/gujgidani20/MGM/src /home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop /home/gujgidani20/MGM/build /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : hamster_simulation/hamster_teleop/CMakeFiles/hamster_teleop_node.dir/depend
 

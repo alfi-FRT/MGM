@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/sanyi/MGM/src/hamster_simulation/gazebo_ackermann_drive_plugin/include/AckermannDrivePlugin.h
+/home/gujgidani20/MGM/src/hamster_simulation/gazebo_ackermann_drive_plugin/include/AckermannDrivePlugin.h
 vector
 -
 ros/ros.h
@@ -40,7 +40,7 @@ nav_msgs/Odometry.h
 random_numbers/random_numbers.h
 -
 
-/home/sanyi/MGM/src/hamster_simulation/gazebo_ackermann_drive_plugin/src/AckermannDrivePlugin.cpp
+/home/gujgidani20/MGM/src/hamster_simulation/gazebo_ackermann_drive_plugin/src/AckermannDrivePlugin.cpp
 AckermannDrivePlugin.h
 -
 string
@@ -8601,6 +8601,8 @@ gz/math/Matrix4.hh
 -
 gz/math/Matrix6.hh
 -
+gz/math/MecanumDriveOdometry.hh
+-
 gz/math/MovingWindowFilter.hh
 -
 gz/math/OrientedBox.hh
@@ -8964,6 +8966,18 @@ gz/math/config.hh
 gz/math/Helpers.hh
 -
 gz/math/Matrix3.hh
+-
+
+/usr/include/ignition/math6/gz/math/MecanumDriveOdometry.hh
+chrono
+-
+memory
+-
+gz/math/Angle.hh
+-
+gz/math/Export.hh
+-
+gz/math/config.hh
 -
 
 /usr/include/ignition/math6/gz/math/MovingWindowFilter.hh

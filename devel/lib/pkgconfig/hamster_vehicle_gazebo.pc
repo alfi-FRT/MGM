@@ -1,4 +1,4 @@
-prefix=/home/sanyi/MGM/devel
+prefix=/home/gujgidani20/MGM/devel
 
 Name: hamster_vehicle_gazebo
 Description: Description of hamster_vehicle_gazebo

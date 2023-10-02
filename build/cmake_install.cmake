@@ -1,8 +1,8 @@
-# Install script for directory: /home/sanyi/MGM/src
+# Install script for directory: /home/gujgidani20/MGM/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/sanyi/MGM/install")
+  set(CMAKE_INSTALL_PREFIX "/home/gujgidani20/MGM/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -49,93 +49,94 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/sanyi/MGM/install/_setup_util.py")
+   "/home/gujgidani20/MGM/install/_setup_util.py")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/sanyi/MGM/install" TYPE PROGRAM FILES "/home/sanyi/MGM/build/catkin_generated/installspace/_setup_util.py")
+file(INSTALL DESTINATION "/home/gujgidani20/MGM/install" TYPE PROGRAM FILES "/home/gujgidani20/MGM/build/catkin_generated/installspace/_setup_util.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/sanyi/MGM/install/env.sh")
+   "/home/gujgidani20/MGM/install/env.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/sanyi/MGM/install" TYPE PROGRAM FILES "/home/sanyi/MGM/build/catkin_generated/installspace/env.sh")
+file(INSTALL DESTINATION "/home/gujgidani20/MGM/install" TYPE PROGRAM FILES "/home/gujgidani20/MGM/build/catkin_generated/installspace/env.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/sanyi/MGM/install/setup.bash;/home/sanyi/MGM/install/local_setup.bash")
+   "/home/gujgidani20/MGM/install/setup.bash;/home/gujgidani20/MGM/install/local_setup.bash")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/sanyi/MGM/install" TYPE FILE FILES
-    "/home/sanyi/MGM/build/catkin_generated/installspace/setup.bash"
-    "/home/sanyi/MGM/build/catkin_generated/installspace/local_setup.bash"
+file(INSTALL DESTINATION "/home/gujgidani20/MGM/install" TYPE FILE FILES
+    "/home/gujgidani20/MGM/build/catkin_generated/installspace/setup.bash"
+    "/home/gujgidani20/MGM/build/catkin_generated/installspace/local_setup.bash"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/sanyi/MGM/install/setup.sh;/home/sanyi/MGM/install/local_setup.sh")
+   "/home/gujgidani20/MGM/install/setup.sh;/home/gujgidani20/MGM/install/local_setup.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/sanyi/MGM/install" TYPE FILE FILES
-    "/home/sanyi/MGM/build/catkin_generated/installspace/setup.sh"
-    "/home/sanyi/MGM/build/catkin_generated/installspace/local_setup.sh"
+file(INSTALL DESTINATION "/home/gujgidani20/MGM/install" TYPE FILE FILES
+    "/home/gujgidani20/MGM/build/catkin_generated/installspace/setup.sh"
+    "/home/gujgidani20/MGM/build/catkin_generated/installspace/local_setup.sh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/sanyi/MGM/install/setup.zsh;/home/sanyi/MGM/install/local_setup.zsh")
+   "/home/gujgidani20/MGM/install/setup.zsh;/home/gujgidani20/MGM/install/local_setup.zsh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/sanyi/MGM/install" TYPE FILE FILES
-    "/home/sanyi/MGM/build/catkin_generated/installspace/setup.zsh"
-    "/home/sanyi/MGM/build/catkin_generated/installspace/local_setup.zsh"
+file(INSTALL DESTINATION "/home/gujgidani20/MGM/install" TYPE FILE FILES
+    "/home/gujgidani20/MGM/build/catkin_generated/installspace/setup.zsh"
+    "/home/gujgidani20/MGM/build/catkin_generated/installspace/local_setup.zsh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/sanyi/MGM/install/.rosinstall")
+   "/home/gujgidani20/MGM/install/.rosinstall")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/sanyi/MGM/install" TYPE FILE FILES "/home/sanyi/MGM/build/catkin_generated/installspace/.rosinstall")
+file(INSTALL DESTINATION "/home/gujgidani20/MGM/install" TYPE FILE FILES "/home/gujgidani20/MGM/build/catkin_generated/installspace/.rosinstall")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/sanyi/MGM/build/gtest/cmake_install.cmake")
-  include("/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle/cmake_install.cmake")
-  include("/home/sanyi/MGM/build/hamster_vehicle_description/cmake_install.cmake")
-  include("/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle_gazebo/cmake_install.cmake")
-  include("/home/sanyi/MGM/build/hamster_simulation/hamster_teleop/cmake_install.cmake")
-  include("/home/sanyi/MGM/build/hamster_simulation/gazebo_ackermann_drive_plugin/cmake_install.cmake")
+  include("/home/gujgidani20/MGM/build/gtest/cmake_install.cmake")
+  include("/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle/cmake_install.cmake")
+  include("/home/gujgidani20/MGM/build/hamster_vehicle_description/cmake_install.cmake")
+  include("/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle_gazebo/cmake_install.cmake")
+  include("/home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop/cmake_install.cmake")
+  include("/home/gujgidani20/MGM/build/hamster_simulation/gazebo_ackermann_drive_plugin/cmake_install.cmake")
+  include("/home/gujgidani20/MGM/build/wot_pkg/cmake_install.cmake")
 
 endif()
 
@@ -147,5 +148,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/sanyi/MGM/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/gujgidani20/MGM/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

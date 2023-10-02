@@ -67,14 +67,14 @@ set(hamster_vehicle_gazebo_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(hamster_vehicle_gazebo_SOURCE_PREFIX /home/sanyi/MGM/src/hamster_simulation/hamster_vehicle_gazebo)
-  set(hamster_vehicle_gazebo_DEVEL_PREFIX /home/sanyi/MGM/devel)
+  set(hamster_vehicle_gazebo_SOURCE_PREFIX /home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle_gazebo)
+  set(hamster_vehicle_gazebo_DEVEL_PREFIX /home/gujgidani20/MGM/devel)
   set(hamster_vehicle_gazebo_INSTALL_PREFIX "")
   set(hamster_vehicle_gazebo_PREFIX ${hamster_vehicle_gazebo_DEVEL_PREFIX})
 else()
   set(hamster_vehicle_gazebo_SOURCE_PREFIX "")
   set(hamster_vehicle_gazebo_DEVEL_PREFIX "")
-  set(hamster_vehicle_gazebo_INSTALL_PREFIX /home/sanyi/MGM/install)
+  set(hamster_vehicle_gazebo_INSTALL_PREFIX /home/gujgidani20/MGM/install)
   set(hamster_vehicle_gazebo_PREFIX ${hamster_vehicle_gazebo_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/sanyi/MGM/install/lib;/workspace/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/gujgidani20/MGM/install/lib;/home/gujgidani20/MGM/devel/lib;/workspace/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

@@ -7,9 +7,6 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/sanyi/MGM/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/sanyi/MGM/devel/lib:$LD_LIBRARY_PATH"
-export PKG_CONFIG_PATH="/home/sanyi/MGM/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PWD='/home/sanyi/MGM/build'
-export ROSLISP_PACKAGE_DIRECTORIES="/home/sanyi/MGM/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/sanyi/MGM/src:$ROS_PACKAGE_PATH"
+export PKG_CONFIG_PATH='/workspace/devel/lib/pkgconfig:/opt/ros/noetic/lib/pkgconfig'
+export PWD='/home/gujgidani20/MGM/build'
+export ROS_PACKAGE_PATH='/home/gujgidani20/MGM/src:/workspace/src:/opt/ros/noetic/share'

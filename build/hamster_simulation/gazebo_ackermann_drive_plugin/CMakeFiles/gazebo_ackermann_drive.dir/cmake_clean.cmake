@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/sanyi/MGM/devel/lib/libgazebo_ackermann_drive.pdb"
-  "/home/sanyi/MGM/devel/lib/libgazebo_ackermann_drive.so"
+  "/home/gujgidani20/MGM/devel/lib/libgazebo_ackermann_drive.pdb"
+  "/home/gujgidani20/MGM/devel/lib/libgazebo_ackermann_drive.so"
   "CMakeFiles/gazebo_ackermann_drive.dir/src/AckermannDrivePlugin.cpp.o"
 )
 

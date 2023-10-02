@@ -67,14 +67,14 @@ set(gazebo_ackermann_drive_plugin_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(gazebo_ackermann_drive_plugin_SOURCE_PREFIX /home/sanyi/MGM/src/hamster_simulation/gazebo_ackermann_drive_plugin)
-  set(gazebo_ackermann_drive_plugin_DEVEL_PREFIX /home/sanyi/MGM/devel)
+  set(gazebo_ackermann_drive_plugin_SOURCE_PREFIX /home/gujgidani20/MGM/src/hamster_simulation/gazebo_ackermann_drive_plugin)
+  set(gazebo_ackermann_drive_plugin_DEVEL_PREFIX /home/gujgidani20/MGM/devel)
   set(gazebo_ackermann_drive_plugin_INSTALL_PREFIX "")
   set(gazebo_ackermann_drive_plugin_PREFIX ${gazebo_ackermann_drive_plugin_DEVEL_PREFIX})
 else()
   set(gazebo_ackermann_drive_plugin_SOURCE_PREFIX "")
   set(gazebo_ackermann_drive_plugin_DEVEL_PREFIX "")
-  set(gazebo_ackermann_drive_plugin_INSTALL_PREFIX /home/sanyi/MGM/install)
+  set(gazebo_ackermann_drive_plugin_INSTALL_PREFIX /home/gujgidani20/MGM/install)
   set(gazebo_ackermann_drive_plugin_PREFIX ${gazebo_ackermann_drive_plugin_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/sanyi/MGM/install/lib;/workspace/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/gujgidani20/MGM/install/lib;/home/gujgidani20/MGM/devel/lib;/workspace/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

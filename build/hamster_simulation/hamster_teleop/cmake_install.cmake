@@ -1,8 +1,8 @@
-# Install script for directory: /home/sanyi/MGM/src/hamster_simulation/hamster_teleop
+# Install script for directory: /home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/sanyi/MGM/install")
+  set(CMAKE_INSTALL_PREFIX "/home/gujgidani20/MGM/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,18 +38,18 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/sanyi/MGM/build/hamster_simulation/hamster_teleop/catkin_generated/installspace/hamster_teleop.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop/catkin_generated/installspace/hamster_teleop.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_teleop/cmake" TYPE FILE FILES
-    "/home/sanyi/MGM/build/hamster_simulation/hamster_teleop/catkin_generated/installspace/hamster_teleopConfig.cmake"
-    "/home/sanyi/MGM/build/hamster_simulation/hamster_teleop/catkin_generated/installspace/hamster_teleopConfig-version.cmake"
+    "/home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop/catkin_generated/installspace/hamster_teleopConfig.cmake"
+    "/home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop/catkin_generated/installspace/hamster_teleopConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_teleop" TYPE FILE FILES "/home/sanyi/MGM/src/hamster_simulation/hamster_teleop/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_teleop" TYPE FILE FILES "/home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -59,7 +59,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hamster_teleop/hamster_teleop_node"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/hamster_teleop" TYPE EXECUTABLE FILES "/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/hamster_teleop" TYPE EXECUTABLE FILES "/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hamster_teleop/hamster_teleop_node" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/hamster_teleop/hamster_teleop_node")
     file(RPATH_CHANGE
@@ -73,6 +73,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_teleop/scripts/" TYPE DIRECTORY FILES "/home/sanyi/MGM/src/hamster_simulation/hamster_teleop/scripts/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_teleop/scripts/" TYPE DIRECTORY FILES "/home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop/scripts/")
 endif()
 

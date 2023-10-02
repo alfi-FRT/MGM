@@ -1,8 +1,8 @@
-# Install script for directory: /home/sanyi/MGM/src/hamster_simulation/hamster_vehicle
+# Install script for directory: /home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/sanyi/MGM/install")
+  set(CMAKE_INSTALL_PREFIX "/home/gujgidani20/MGM/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle/catkin_generated/installspace/hamster_vehicle.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle/catkin_generated/installspace/hamster_vehicle.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle/cmake" TYPE FILE FILES
-    "/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle/catkin_generated/installspace/hamster_vehicleConfig.cmake"
-    "/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle/catkin_generated/installspace/hamster_vehicleConfig-version.cmake"
+    "/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle/catkin_generated/installspace/hamster_vehicleConfig.cmake"
+    "/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle/catkin_generated/installspace/hamster_vehicleConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle" TYPE FILE FILES "/home/sanyi/MGM/src/hamster_simulation/hamster_vehicle/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle" TYPE FILE FILES "/home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle/package.xml")
 endif()
 

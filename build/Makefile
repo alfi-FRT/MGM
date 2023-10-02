@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sanyi/MGM/src
+CMAKE_SOURCE_DIR = /home/gujgidani20/MGM/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sanyi/MGM/build
+CMAKE_BINARY_DIR = /home/gujgidani20/MGM/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -137,9 +137,9 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sanyi/MGM/build/CMakeFiles /home/sanyi/MGM/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gujgidani20/MGM/build/CMakeFiles /home/gujgidani20/MGM/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sanyi/MGM/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/gujgidani20/MGM/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -1259,6 +1259,19 @@ tf2_msgs_generate_messages_py/fast:
 	$(MAKE) -f hamster_simulation/gazebo_ackermann_drive_plugin/CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make hamster_simulation/gazebo_ackermann_drive_plugin/CMakeFiles/tf2_msgs_generate_messages_py.dir/build
 .PHONY : tf2_msgs_generate_messages_py/fast
 
+#=============================================================================
+# Target rules for targets named master_node
+
+# Build rule for target.
+master_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 master_node
+.PHONY : master_node
+
+# fast build rule for target.
+master_node/fast:
+	$(MAKE) -f wot_pkg/CMakeFiles/master_node.dir/build.make wot_pkg/CMakeFiles/master_node.dir/build
+.PHONY : master_node/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -1356,6 +1369,7 @@ help:
 	@echo "... tf2_msgs_generate_messages_cpp"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_py"
+	@echo "... master_node"
 .PHONY : help
 
 

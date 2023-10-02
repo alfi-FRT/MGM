@@ -1,8 +1,8 @@
-# Install script for directory: /home/sanyi/MGM/src/hamster_simulation/hamster_vehicle_gazebo
+# Install script for directory: /home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle_gazebo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/sanyi/MGM/install")
+  set(CMAKE_INSTALL_PREFIX "/home/gujgidani20/MGM/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,33 +38,33 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle_gazebo/catkin_generated/installspace/hamster_vehicle_gazebo.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle_gazebo/catkin_generated/installspace/hamster_vehicle_gazebo.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo/cmake" TYPE FILE FILES
-    "/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle_gazebo/catkin_generated/installspace/hamster_vehicle_gazeboConfig.cmake"
-    "/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle_gazebo/catkin_generated/installspace/hamster_vehicle_gazeboConfig-version.cmake"
+    "/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle_gazebo/catkin_generated/installspace/hamster_vehicle_gazeboConfig.cmake"
+    "/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle_gazebo/catkin_generated/installspace/hamster_vehicle_gazeboConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo" TYPE FILE FILES "/home/sanyi/MGM/src/hamster_simulation/hamster_vehicle_gazebo/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo" TYPE FILE FILES "/home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle_gazebo/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/hamster_vehicle_gazebo" TYPE PROGRAM FILES "/home/sanyi/MGM/build/hamster_simulation/hamster_vehicle_gazebo/catkin_generated/installspace/ackermann_controller.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/hamster_vehicle_gazebo" TYPE PROGRAM FILES "/home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle_gazebo/catkin_generated/installspace/ackermann_controller.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo/launch/" TYPE DIRECTORY FILES "/home/sanyi/MGM/src/hamster_simulation/hamster_vehicle_gazebo/launch/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo/launch/" TYPE DIRECTORY FILES "/home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle_gazebo/launch/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo/models/" TYPE DIRECTORY FILES "/home/sanyi/MGM/src/hamster_simulation/hamster_vehicle_gazebo/models/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo/models/" TYPE DIRECTORY FILES "/home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle_gazebo/models/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo/worlds/" TYPE DIRECTORY FILES "/home/sanyi/MGM/src/hamster_simulation/hamster_vehicle_gazebo/worlds/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/hamster_vehicle_gazebo/worlds/" TYPE DIRECTORY FILES "/home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle_gazebo/worlds/")
 endif()
 

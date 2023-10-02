@@ -1,5 +1,7 @@
+<?xml version="1.0"?>
+
 <launch>
 
-    <node pkg="wot_pkg", name="master_node", type="master_node"/>
+    <node pkg="wot_pkg" name="master_node" type="master_node"/>
 
 </launch>

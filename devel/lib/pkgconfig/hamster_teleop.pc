@@ -1,4 +1,4 @@
-prefix=/home/sanyi/MGM/devel
+prefix=/home/gujgidani20/MGM/devel
 
 Name: hamster_teleop
 Description: Description of hamster_teleop

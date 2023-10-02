@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sanyi/MGM/src
+CMAKE_SOURCE_DIR = /home/gujgidani20/MGM/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sanyi/MGM/build
+CMAKE_BINARY_DIR = /home/gujgidani20/MGM/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ hamster_simulation/hamster_vehicle/CMakeFiles/_catkin_empty_exported_target.dir/
 .PHONY : hamster_simulation/hamster_vehicle/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 hamster_simulation/hamster_vehicle/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/sanyi/MGM/build/hamster_simulation/hamster_vehicle && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : hamster_simulation/hamster_vehicle/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 hamster_simulation/hamster_vehicle/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/sanyi/MGM/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sanyi/MGM/src /home/sanyi/MGM/src/hamster_simulation/hamster_vehicle /home/sanyi/MGM/build /home/sanyi/MGM/build/hamster_simulation/hamster_vehicle /home/sanyi/MGM/build/hamster_simulation/hamster_vehicle/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/gujgidani20/MGM/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/gujgidani20/MGM/src /home/gujgidani20/MGM/src/hamster_simulation/hamster_vehicle /home/gujgidani20/MGM/build /home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle /home/gujgidani20/MGM/build/hamster_simulation/hamster_vehicle/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : hamster_simulation/hamster_vehicle/CMakeFiles/_catkin_empty_exported_target.dir/depend
 

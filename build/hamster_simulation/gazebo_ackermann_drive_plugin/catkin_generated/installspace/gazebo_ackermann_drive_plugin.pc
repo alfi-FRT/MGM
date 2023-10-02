@@ -1,4 +1,4 @@
-prefix=/home/sanyi/MGM/install
+prefix=/home/gujgidani20/MGM/install
 
 Name: gazebo_ackermann_drive_plugin
 Description: Description of gazebo_ackermann_drive_plugin

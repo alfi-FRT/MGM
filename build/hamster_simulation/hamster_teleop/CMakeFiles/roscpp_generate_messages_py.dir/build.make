@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sanyi/MGM/src
+CMAKE_SOURCE_DIR = /home/gujgidani20/MGM/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sanyi/MGM/build
+CMAKE_BINARY_DIR = /home/gujgidani20/MGM/build
 
 # Utility rule file for roscpp_generate_messages_py.
 
@@ -63,10 +63,10 @@ hamster_simulation/hamster_teleop/CMakeFiles/roscpp_generate_messages_py.dir/bui
 .PHONY : hamster_simulation/hamster_teleop/CMakeFiles/roscpp_generate_messages_py.dir/build
 
 hamster_simulation/hamster_teleop/CMakeFiles/roscpp_generate_messages_py.dir/clean:
-	cd /home/sanyi/MGM/build/hamster_simulation/hamster_teleop && $(CMAKE_COMMAND) -P CMakeFiles/roscpp_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop && $(CMAKE_COMMAND) -P CMakeFiles/roscpp_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : hamster_simulation/hamster_teleop/CMakeFiles/roscpp_generate_messages_py.dir/clean
 
 hamster_simulation/hamster_teleop/CMakeFiles/roscpp_generate_messages_py.dir/depend:
-	cd /home/sanyi/MGM/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sanyi/MGM/src /home/sanyi/MGM/src/hamster_simulation/hamster_teleop /home/sanyi/MGM/build /home/sanyi/MGM/build/hamster_simulation/hamster_teleop /home/sanyi/MGM/build/hamster_simulation/hamster_teleop/CMakeFiles/roscpp_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/gujgidani20/MGM/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/gujgidani20/MGM/src /home/gujgidani20/MGM/src/hamster_simulation/hamster_teleop /home/gujgidani20/MGM/build /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop /home/gujgidani20/MGM/build/hamster_simulation/hamster_teleop/CMakeFiles/roscpp_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : hamster_simulation/hamster_teleop/CMakeFiles/roscpp_generate_messages_py.dir/depend
 

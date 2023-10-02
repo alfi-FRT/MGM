@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node"
-  "/home/sanyi/MGM/devel/lib/hamster_teleop/hamster_teleop_node.pdb"
+  "/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node"
+  "/home/gujgidani20/MGM/devel/lib/hamster_teleop/hamster_teleop_node.pdb"
   "CMakeFiles/hamster_teleop_node.dir/src/joystick_teleop_node.cpp.o"
 )
 

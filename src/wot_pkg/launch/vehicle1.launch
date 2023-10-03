@@ -4,9 +4,4 @@
 
     <node pkg="wot_pkg" name="vehicle1_node" type="vehicle_node"/>
 
-    <include file="$(find hamster_vehicle_gazebo)/launch/hamster_world.launch">
-		<arg name="gui" value="true"/>
-		<arg name="world_name" value="$(find hamster_vehicle_gazebo)/worlds/cogni_office.world"/>
-	</include>
-
 </launch>

@@ -146,10 +146,11 @@
 /home/gujgidani20/MGM/build/hamster_simulation/gazebo_ackermann_drive_plugin/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir
 /home/gujgidani20/MGM/build/hamster_simulation/gazebo_ackermann_drive_plugin/CMakeFiles/tf2_msgs_generate_messages_py.dir
 /home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/install/strip.dir
-/home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/install/local.dir
 /home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/install.dir
 /home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/list_install_components.dir
 /home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/rebuild_cache.dir
 /home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/edit_cache.dir
 /home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/test.dir
+/home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/install/local.dir
+/home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/vehicle_node.dir
 /home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/master_node.dir

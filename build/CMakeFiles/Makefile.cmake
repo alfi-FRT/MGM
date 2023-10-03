@@ -499,5 +499,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "hamster_simulation/gazebo_ackermann_drive_plugin/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/DependInfo.cmake"
   "hamster_simulation/gazebo_ackermann_drive_plugin/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/DependInfo.cmake"
   "hamster_simulation/gazebo_ackermann_drive_plugin/CMakeFiles/tf2_msgs_generate_messages_py.dir/DependInfo.cmake"
+  "wot_pkg/CMakeFiles/vehicle_node.dir/DependInfo.cmake"
   "wot_pkg/CMakeFiles/master_node.dir/DependInfo.cmake"
   )

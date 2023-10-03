@@ -1260,6 +1260,19 @@ tf2_msgs_generate_messages_py/fast:
 .PHONY : tf2_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named vehicle_node
+
+# Build rule for target.
+vehicle_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 vehicle_node
+.PHONY : vehicle_node
+
+# fast build rule for target.
+vehicle_node/fast:
+	$(MAKE) -f wot_pkg/CMakeFiles/vehicle_node.dir/build.make wot_pkg/CMakeFiles/vehicle_node.dir/build
+.PHONY : vehicle_node/fast
+
+#=============================================================================
 # Target rules for targets named master_node
 
 # Build rule for target.
@@ -1369,6 +1382,7 @@ help:
 	@echo "... tf2_msgs_generate_messages_cpp"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_py"
+	@echo "... vehicle_node"
 	@echo "... master_node"
 .PHONY : help
 

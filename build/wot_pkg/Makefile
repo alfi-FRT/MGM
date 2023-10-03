@@ -68,18 +68,6 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -135,6 +123,18 @@ test/fast: test
 
 .PHONY : test/fast
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /home/gujgidani20/MGM/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/gujgidani20/MGM/build/CMakeFiles /home/gujgidani20/MGM/build/wot_pkg/CMakeFiles/progress.marks
@@ -166,6 +166,21 @@ preinstall/fast:
 depend:
 	cd /home/gujgidani20/MGM/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+wot_pkg/CMakeFiles/vehicle_node.dir/rule:
+	cd /home/gujgidani20/MGM/build && $(MAKE) -f CMakeFiles/Makefile2 wot_pkg/CMakeFiles/vehicle_node.dir/rule
+.PHONY : wot_pkg/CMakeFiles/vehicle_node.dir/rule
+
+# Convenience name for target.
+vehicle_node: wot_pkg/CMakeFiles/vehicle_node.dir/rule
+
+.PHONY : vehicle_node
+
+# fast build rule for target.
+vehicle_node/fast:
+	cd /home/gujgidani20/MGM/build && $(MAKE) -f wot_pkg/CMakeFiles/vehicle_node.dir/build.make wot_pkg/CMakeFiles/vehicle_node.dir/build
+.PHONY : vehicle_node/fast
 
 # Convenience name for target.
 wot_pkg/CMakeFiles/master_node.dir/rule:
@@ -209,6 +224,33 @@ src/master_node.cpp.s:
 	cd /home/gujgidani20/MGM/build && $(MAKE) -f wot_pkg/CMakeFiles/master_node.dir/build.make wot_pkg/CMakeFiles/master_node.dir/src/master_node.cpp.s
 .PHONY : src/master_node.cpp.s
 
+src/vehicle_node.o: src/vehicle_node.cpp.o
+
+.PHONY : src/vehicle_node.o
+
+# target to build an object file
+src/vehicle_node.cpp.o:
+	cd /home/gujgidani20/MGM/build && $(MAKE) -f wot_pkg/CMakeFiles/vehicle_node.dir/build.make wot_pkg/CMakeFiles/vehicle_node.dir/src/vehicle_node.cpp.o
+.PHONY : src/vehicle_node.cpp.o
+
+src/vehicle_node.i: src/vehicle_node.cpp.i
+
+.PHONY : src/vehicle_node.i
+
+# target to preprocess a source file
+src/vehicle_node.cpp.i:
+	cd /home/gujgidani20/MGM/build && $(MAKE) -f wot_pkg/CMakeFiles/vehicle_node.dir/build.make wot_pkg/CMakeFiles/vehicle_node.dir/src/vehicle_node.cpp.i
+.PHONY : src/vehicle_node.cpp.i
+
+src/vehicle_node.s: src/vehicle_node.cpp.s
+
+.PHONY : src/vehicle_node.s
+
+# target to generate assembly for a file
+src/vehicle_node.cpp.s:
+	cd /home/gujgidani20/MGM/build && $(MAKE) -f wot_pkg/CMakeFiles/vehicle_node.dir/build.make wot_pkg/CMakeFiles/vehicle_node.dir/src/vehicle_node.cpp.s
+.PHONY : src/vehicle_node.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -216,16 +258,20 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... install/local"
+	@echo "... vehicle_node"
 	@echo "... master_node"
 	@echo "... src/master_node.o"
 	@echo "... src/master_node.i"
 	@echo "... src/master_node.s"
+	@echo "... src/vehicle_node.o"
+	@echo "... src/vehicle_node.i"
+	@echo "... src/vehicle_node.s"
 .PHONY : help
 
 

@@ -1,8 +1,0 @@
-prefix=/home/gujgidani20/MGM/devel
-
-Name: hamster_vehicle_description
-Description: Description of hamster_vehicle_description
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

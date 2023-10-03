@@ -1,8 +1,0 @@
-prefix=/home/gujgidani20/MGM/devel
-
-Name: hamster_teleop
-Description: Description of hamster_teleop
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <node pkg="wot_pkg" name="vehicle1_node" type="vehicle_node"/>
+
+</launch>

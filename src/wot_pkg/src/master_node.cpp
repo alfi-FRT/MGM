@@ -2,6 +2,13 @@
 #include <iostream>
 #include <std_msgs/String.h>
 
+// Subscriber to the coordinates topic
+void coordinatesCallback(const std_msgs::String::ConstPtr& msg)
+{
+   ROS_INFO("I heard: [%s]", msg->data.c_str());
+};
+
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "master_node");
@@ -13,6 +20,7 @@ int main(int argc, char **argv)
         std_msgs::String msg;
         msg.data = "Itt vagyok!";
         pub.publish(msg);
+        ros::Subscriber sub = n.subscribe("coordinates", 1000, coordinatesCallback);
         ros::spinOnce();
         r.sleep();
     }

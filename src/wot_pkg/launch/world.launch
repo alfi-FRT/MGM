@@ -9,4 +9,8 @@
 		<arg name="world_name" value="$(find hamster_vehicle_gazebo)/worlds/cogni_office.world"/>
 	</include>
 
+	<include file="$(find wot_pkg)/launch/vehicle1.launch">
+	<!--	<arg name="agent" value="vehicle1"/> -->
+	</include>
+
 </launch>

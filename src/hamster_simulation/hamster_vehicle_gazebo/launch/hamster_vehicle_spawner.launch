@@ -3,7 +3,7 @@
 	<arg name="agent" default="agent1"/>
 	<arg name="cmd_timeout" default="0.5"/>
 	<arg name="use_joystick" default="false" />
-	<arg name="use_keyboard" default="false" />
+	<arg name="use_keyboard" default="true" />
 	<arg name="joystick_dev" default="/dev/input/js0"/>
 	<arg name="x" default="0"/>
 	<arg name="y" default="1.0"/>

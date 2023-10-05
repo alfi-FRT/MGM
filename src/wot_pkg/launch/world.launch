@@ -2,6 +2,8 @@
 
 <launch>
 
+	
+
     <node pkg="wot_pkg" name="master_node" type="master_node"/>
 
     <include file="$(find hamster_vehicle_gazebo)/launch/hamster_world.launch">
@@ -10,7 +12,19 @@
 	</include>
 
 	<include file="$(find wot_pkg)/launch/vehicle1.launch">
-	<!--	<arg name="agent" value="vehicle1"/> -->
+    	<arg name="agent" value="vehicle1"/>
+		<arg name="x" value="0.0"/>	
+		<arg name="y" value="0.0"/>
+		<arg name="z" value="0.0"/>
+	</include>
+
+	<include file="$(find wot_pkg)/launch/vehicle1.launch">
+    	<arg name="agent" value="vehicle2"/>
+		<arg name="x" value="1.5"/>
+		<arg name="y" value="0.0"/>
+		<arg name="z" value="0.0"/>
+		<arg name="use_keyboard" value="false"/>
+
 	</include>
 
 </launch>

@@ -7,8 +7,9 @@
 	<arg name="joystick_dev" default="/dev/input/js0"/>
 	<arg name="x" default="0"/>
 	<arg name="y" default="1.0"/>
+	<arg name="z" default="0.0"/>
 	<arg name="is_publishTF" default="true"/>
-	<arg name="tf_target_topic" default="odom/raw"/>
+	<arg name="tf_target_topic" default="odom/ground_truth"/>
 	<arg name="robot_version" default="V7"/>
  
 	<group>

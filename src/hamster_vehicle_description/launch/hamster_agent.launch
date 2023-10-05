@@ -10,7 +10,7 @@
 	<arg name="pitch" default="0.0"/>
 	<arg name="yaw" default="0.0"/>
 	<arg name="is_publishTF" default="true"/>
-	<arg name="tf_target_topic" default="odom/raw"/>
+	<arg name="tf_target_topic" default="odom/ground_truth"/>
 	<arg name="robot_version" default="V6"/>
 	<arg name="simulation" default="true"/>
 	

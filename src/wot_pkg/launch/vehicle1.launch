@@ -2,10 +2,21 @@
 
 <launch>
 
-    <node pkg="wot_pkg" name="vehicle1_node" type="vehicle_node"/>
+    <arg name="agent" default="agent1"/>
+    <arg name="x" default="0.0"/>
+    <arg name="y" default="0.0"/>
+    <arg name="z" default="0.0"/>
+    <arg name="use_keyboard" default="true"/>
+    
+
+    <node pkg="wot_pkg" name="$(arg agent)" type="vehicle_node"/>
 
     <include file="$(find hamster_vehicle_gazebo)/launch/hamster_vehicle_spawner.launch">
-        <arg name="agent" value="vehicle1"/>
+        <arg name="agent" value="$(arg agent)"/>
+        <arg name="x" default="$(arg x)"/>
+        <arg name="y" default="$(arg y)"/>
+        <arg name="z" default="$(arg z)"/>
+        <arg name="use_keyboard" default="$(arg use_keyboard)"/>
     </include>
 
 

@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     n.param<std::string>("/" + vehicle_name + "/position" , pose_topic_name, "/" + vehicle_name + "/position");
 
     ros::Subscriber sub = n.subscribe(odom_topic_name, 1000, odomCallBack);
-    ros::Publisher pub = n.advertise<nav_msgs::Odometry>(pose_topic_name, 1000);        
+    ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);        
     ros::Rate r(10);
 
     while (ros::ok())

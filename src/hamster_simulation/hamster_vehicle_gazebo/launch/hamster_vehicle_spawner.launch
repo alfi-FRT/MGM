@@ -11,6 +11,7 @@
 	<arg name="is_publishTF" default="true"/>
 	<arg name="tf_target_topic" default="odom/ground_truth"/>
 	<arg name="robot_version" default="V7"/>
+	
  
 	<group>
 		<include file="$(find hamster_vehicle_description)/launch/hamster_agent.launch">
@@ -20,6 +21,7 @@
 			<arg name="robot_version" value="$(arg robot_version)"/>
 			<arg name="is_publishTF" value="$(arg is_publishTF)"/>
 			<arg name="tf_target_topic" value="$(arg tf_target_topic)"/>
+			<param name="vehicle_name" value="$(arg agent)"/>
 		</include>
 
 		  <group if="$(arg use_joystick)">

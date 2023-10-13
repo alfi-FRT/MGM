@@ -20,7 +20,8 @@ void odomCallBack(const nav_msgs::Odometry msg)
 }
 
 void scanCallBack(const sensor_msgs::LaserScan msg)
-{		
+{
+    hit_range = 12;		
     for (int i = 0; i <= 4 ; i++)
     {
         if (msg.ranges[i] < hit_range && msg.ranges[i] > 0.1)

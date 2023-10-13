@@ -1,7 +1,7 @@
 # Request
-geometry_msgs/Point vehicle_position
+geometry_msgs/PoseStamped vehicle_position
 visualization_msgs/MarkerArray marker_array
-geometry_msgs/Point hit_location
+geometry_msgs/PoseStamped hit_location
 
 ---
 

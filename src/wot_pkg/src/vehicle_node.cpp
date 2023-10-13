@@ -27,15 +27,15 @@ int main(int argc, char **argv)
 
     ros::Subscriber sub = n.subscribe(odom_topic_name, 1000, odomCallBack);
     ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);   
-    ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );     
-    ros::Rate r(10);
+    ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 0 ); 
+        ros::Rate r(10);
 
     visualization_msgs::Marker cluster_marker;
     cluster_marker.header.stamp = ros::Time();			
     cluster_marker.header.frame_id = vehicle_name + "/base_link";			
     cluster_marker.action = visualization_msgs::Marker::ADD;			
     cluster_marker.lifetime = ros::Duration(0.5);			
-    cluster_marker.ns = "my_namespace";			
+    cluster_marker.ns = "bounding_box";			
     cluster_marker.type = visualization_msgs::Marker::CUBE;			
     cluster_marker.pose.position.x = 0;			
     cluster_marker.pose.position.y = 0;			
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
         msg.pose = actual_pose.pose;
         pub.publish(msg);           
         vis_pub.publish(cluster_marker);
-
+        
         ros::spinOnce();
         r.sleep();
     }

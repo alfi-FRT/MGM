@@ -29,4 +29,6 @@
 
 	<node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find hamster_vehicle)/rviz/hamsters.rviz"/> 
 
+
+
 </launch>

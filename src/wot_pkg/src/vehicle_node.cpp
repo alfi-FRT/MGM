@@ -3,6 +3,7 @@
 #include <std_msgs/String.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/TransformStamped.h>
 #include <visualization_msgs/Marker.h>
 #include <sensor_msgs/LaserScan.h>
 #include <tf/transform_datatypes.h>
@@ -15,50 +16,58 @@ struct tf_pub{
 
     tf_pub(ros::NodeHandle n_):n(n_),tfListener(tfBuffer)
 	{
-		std::string odom_topic_name;
-		n.param<std::string>("odom_topic_name", odom_topic_name, "/odom");
-		sub = n.subscribe(odom_topic_name, 100, &tf_pub::callback_odom, this);
-		pub = n.advertise<nav_msgs::Odometry>("base_link", 1000);
+		std::string hit_topic_name;
+		n.param<std::string>("hit_topic_name", hit_topic_name, "hit_pose");
+		sub = n.subscribe(hit_topic_name, 100, &tf_pub::callback_odom, this);
+		pub = n.advertise<nav_msgs::Odometry>("global_hit_pose", 1000);
 	}
 	~tf_pub(){}
 
     void callback_odom(const nav_msgs::Odometry::ConstPtr& msg){
 		
-		geometry_msgs::TransformStamped tf_stamped;
-		tf_stamped.header = msg->header;
-		tf_stamped.child_frame_id = msg->child_frame_id;
-
-		tf_stamped.transform.translation.x = msg->pose.pose.position.x;
-		tf_stamped.transform.translation.y = msg->pose.pose.position.y;
-		tf_stamped.transform.translation.z = msg->pose.pose.position.z;
+	    geometry_msgs::TransformStamped tf_stamped;
+		tf_stamped.header = msg -> header;
+        tf_stamped.child_frame_id = msg -> child_frame_id;
 		
-		tf_stamped.transform.rotation = msg->pose.pose.orientation;
+
+		tf_stamped.transform.translation.x = msg -> pose.pose.position.x;
+		tf_stamped.transform.translation.y = msg -> pose.pose.position.y;
+		tf_stamped.transform.translation.z = msg -> pose.pose.position.z;
+		
+		tf_stamped.transform.rotation = msg -> pose.pose.orientation;
 		
 		broadcaster.sendTransform(tf_stamped);
 
 		ROS_INFO_STREAM("Transformation" << tf_stamped);
 
-		cal_base_link(msg->header.stamp);
+		cal_odom(msg -> header.stamp);
 
 	}
 
-    void cal_base_link(ros::Time tmstamp){
-        std::string target_frame = "base_link";
+    void cal_odom(ros::Time tmstamp){
+        std::string target_frame = "global_hit_pose";
         if (tfBuffer.canTransform("map",
 							target_frame,
 							tmstamp,
 							ros::Duration(0.1)))
 		{
-			// Getting the transformation
-			auto trans_map2baselink = tfBuffer.lookupTransform("map",
-														target_frame,
-														tmstamp);
-		geometry_msgs::PoseStamped hitpoint_global;
-			hitpoint_global.header = trans_map2baselink.header;
-			hitpoint_global.pose.position.x = trans_map2baselink.transform.translation.x;
-            hitpoint_global.pose.position.y = trans_map2baselink.transform.translation.y;
-            hitpoint_global.pose.position.z = trans_map2baselink.transform.translation.z;
-			pub.publish(hitpoint_global);
+        // Getting the transformation
+        auto trans_world2baselink = tfBuffer.lookupTransform("map",
+                                                    target_frame,
+                                                    tmstamp);           
+		geometry_msgs::PoseStamped transformed_point;
+        transformed_point.pose.position.x = 0.0;
+        transformed_point.pose.position.y = 0.0;
+        transformed_point.pose.position.z = 0.0;
+        transformed_point.pose.orientation.w = 1.0;
+        tf2::doTransform(transformed_point, transformed_point, trans_world2baselink);
+                
+        nav_msgs::Odometry hitpoint_global;
+        hitpoint_global.header = trans_world2baselink.header;
+        hitpoint_global.child_frame_id = trans_world2baselink.child_frame_id;
+        hitpoint_global.pose.pose = transformed_point.pose;
+			
+		pub.publish(hitpoint_global);
         }	
     }
 
@@ -68,7 +77,6 @@ struct tf_pub{
 
 	tf2_ros::Buffer tfBuffer;
     tf2_ros::TransformListener tfListener;
-
     tf2_ros::TransformBroadcaster broadcaster;
 };
 

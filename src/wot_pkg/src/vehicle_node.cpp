@@ -4,14 +4,28 @@
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <visualization_msgs/Marker.h>
+#include <sensor_msgs/LaserScan.h>
+#include <tf/transform_datatypes.h>
 
 geometry_msgs::PoseStamped actual_pose;
+geometry_msgs::PoseStamped hit_pose;
+double hit_range = 0.0;
+
 
 
 void odomCallBack(const nav_msgs::Odometry msg)
-	{		
-        actual_pose.pose = msg.pose.pose;
-	}
+{		
+    actual_pose.pose = msg.pose.pose;
+}
+
+void scanCallBack(const sensor_msgs::LaserScan msg)
+{		
+    hit_range = msg.ranges[0];
+    double yaw = tf::getYaw(actual_pose.pose.orientation);
+    hit_pose.pose.position.x = actual_pose.pose.position.x + hit_range * cos(yaw);
+    hit_pose.pose.position.y = actual_pose.pose.position.y + hit_range * sin(yaw);
+    hit_pose.pose.position.z = actual_pose.pose.position.z;
+}
 
 
 int main(int argc, char **argv)
@@ -27,8 +41,9 @@ int main(int argc, char **argv)
 
     ros::Subscriber sub = n.subscribe(odom_topic_name, 1000, odomCallBack);
     ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);   
-    ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 0 ); 
-        ros::Rate r(10);
+    ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );
+    ros::Subscriber scanner = n.subscribe("/" + vehicle_name + "/scan", 1000, scanCallBack);
+    ros::Rate r(10);
 
     visualization_msgs::Marker cluster_marker;
     cluster_marker.header.stamp = ros::Time();			
@@ -57,6 +72,7 @@ int main(int argc, char **argv)
         msg.pose = actual_pose.pose;
         pub.publish(msg);           
         vis_pub.publish(cluster_marker);
+        ROS_INFO("I heard: [%f]", hit_range);
         
         ros::spinOnce();
         r.sleep();

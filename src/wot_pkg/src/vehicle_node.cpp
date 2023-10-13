@@ -9,7 +9,8 @@
 
 geometry_msgs::PoseStamped actual_pose;
 geometry_msgs::PoseStamped hit_pose;
-double hit_range = 0.0;
+double hit_range = 12.0;
+visualization_msgs::Marker hit_marker;
 
 
 
@@ -20,11 +21,38 @@ void odomCallBack(const nav_msgs::Odometry msg)
 
 void scanCallBack(const sensor_msgs::LaserScan msg)
 {		
-    hit_range = msg.ranges[0];
-    double yaw = tf::getYaw(actual_pose.pose.orientation);
-    hit_pose.pose.position.x = actual_pose.pose.position.x + hit_range * cos(yaw);
-    hit_pose.pose.position.y = actual_pose.pose.position.y + hit_range * sin(yaw);
-    hit_pose.pose.position.z = actual_pose.pose.position.z;
+    for (int i = 0; i <= 4 ; i++)
+    {
+        if (msg.ranges[i] < hit_range && msg.ranges[i] > 0.1)
+        {
+            hit_range = msg.ranges[i];
+        }
+    }
+    for (int i= msg.ranges.size()-4; i <= msg.ranges.size(); i++)
+    {
+        if (msg.ranges[i] < hit_range && msg.ranges[i] > 0.1)
+        {
+            hit_range = msg.ranges[i];
+        }
+    }
+    hit_pose.pose.position.x = - hit_range ;
+    hit_pose.pose.position.y = 0;
+    hit_pose.pose.position.z = 0;
+    hit_pose.pose.orientation.w = 1.0; 
+    hit_marker.header = msg.header;
+    hit_marker.id = 0;
+    hit_marker.action = visualization_msgs::Marker::ADD;
+    hit_marker.lifetime = ros::Duration(0.1);
+    hit_marker.ns = "hit_marker";
+    hit_marker.type = visualization_msgs::Marker::SPHERE;
+    hit_marker.pose = hit_pose.pose;
+    hit_marker.color.r = 1.0;
+    hit_marker.color.g = 0.0;
+    hit_marker.color.b = 0.0;
+    hit_marker.color.a = 1.0;
+    hit_marker.scale.x = 0.1;
+    hit_marker.scale.y = 0.1;
+    hit_marker.scale.z = 0.1;
 }
 
 
@@ -43,6 +71,7 @@ int main(int argc, char **argv)
     ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);   
     ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );
     ros::Subscriber scanner = n.subscribe("/" + vehicle_name + "/scan", 1000, scanCallBack);
+    ros::Publisher hit_pub = n.advertise<visualization_msgs::Marker>("hit_pose", 1000);
     ros::Rate r(10);
 
     visualization_msgs::Marker cluster_marker;
@@ -72,6 +101,7 @@ int main(int argc, char **argv)
         msg.pose = actual_pose.pose;
         pub.publish(msg);           
         vis_pub.publish(cluster_marker);
+        hit_pub.publish(hit_marker);
         ROS_INFO("I heard: [%f]", hit_range);
         
         ros::spinOnce();

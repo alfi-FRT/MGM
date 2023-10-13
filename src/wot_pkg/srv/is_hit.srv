@@ -1,0 +1,9 @@
+# Request
+geometry_msgs/Point vehicle_position
+visualization_msgs/MarkerArray marker_array
+geometry_msgs/Point hit_location
+
+---
+
+# Response
+bool is_hit

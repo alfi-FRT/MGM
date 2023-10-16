@@ -29,6 +29,6 @@
 
 	<node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find hamster_vehicle)/rviz/hamsters.rviz"/> 
 
-
+	<param name="robot_description" command="$(find xacro)/xacro $(find hamster_vehicle_description)/urdf/hamster.urdf.xacro"/>
 
 </launch>

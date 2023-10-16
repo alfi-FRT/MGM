@@ -10,6 +10,9 @@
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include "wot_pkg/is_hit.h"
 
 
 struct tf_pub{
@@ -18,7 +21,7 @@ struct tf_pub{
 	{
 		std::string hit_topic_name;
 		n.param<std::string>("hit_topic_name", hit_topic_name, "hit_pose");
-		sub = n.subscribe(hit_topic_name, 100, &tf_pub::callback_odom, this);
+		sub = n.subscribe(hit_topic_name, 1000, &tf_pub::callback_odom, this);
 		pub = n.advertise<nav_msgs::Odometry>("global_hit_pose", 1000);
 	}
 	~tf_pub(){}
@@ -49,7 +52,7 @@ struct tf_pub{
         if (tfBuffer.canTransform("map",
 							target_frame,
 							tmstamp,
-							ros::Duration(0.1)))
+							ros::Duration(0.01)))
 		{
         // Getting the transformation
         auto trans_world2baselink = tfBuffer.lookupTransform("map",
@@ -62,7 +65,7 @@ struct tf_pub{
         transformed_point.pose.orientation.w = 1.0;
         tf2::doTransform(transformed_point, transformed_point, trans_world2baselink);
                 
-        nav_msgs::Odometry hitpoint_global;
+        
         hitpoint_global.header = trans_world2baselink.header;
         hitpoint_global.child_frame_id = trans_world2baselink.child_frame_id;
         hitpoint_global.pose.pose = transformed_point.pose;
@@ -85,7 +88,7 @@ geometry_msgs::PoseStamped actual_pose;
 geometry_msgs::PoseStamped hit_pose;
 double hit_range = 12.0;
 visualization_msgs::Marker hit_marker;
-
+nav_msgs::Odometry hitpoint_global;
 
 
 void odomCallBack(const nav_msgs::Odometry msg)
@@ -145,9 +148,14 @@ int main(int argc, char **argv)
 
     ros::Subscriber sub = n.subscribe(odom_topic_name, 1000, odomCallBack);
     ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);   
-    ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 0 );
+    ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 1000 );
     ros::Subscriber scanner = n.subscribe("/" + vehicle_name + "/scan", 1000, scanCallBack);
     ros::Publisher hit_pub = n.advertise<visualization_msgs::Marker>("hit_pose", 1000);
+    ros::ServiceClient client = n.serviceClient<wot_pkg::is_hit>("is_hit");
+    wot_pkg::is_hit srv;
+    srv.request.hit_location = hitpoint_global;
+    srv.request.hitbox = hit_marker;
+
     ros::Rate r(10);
 
     visualization_msgs::Marker cluster_marker;
@@ -177,7 +185,7 @@ int main(int argc, char **argv)
         pub.publish(msg);           
         vis_pub.publish(cluster_marker);
         hit_pub.publish(hit_marker);
-        ROS_INFO("I heard: [%f]", hit_range);
+        ROS_INFO("I heard: [%f]", );
         
         
         ros::spinOnce();

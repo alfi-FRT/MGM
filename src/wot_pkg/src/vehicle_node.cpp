@@ -15,6 +15,7 @@
 #include "wot_pkg/is_hit.h"
 
 
+
 struct tf_pub{
 
     tf_pub(ros::NodeHandle n_):n(n_),tfListener(tfBuffer)
@@ -46,6 +47,8 @@ struct tf_pub{
 		cal_odom(msg -> header.stamp);
 
 	}
+
+    nav_msgs::Odometry hitpoint_global;
 
     void cal_odom(ros::Time tmstamp){
         std::string target_frame = "global_hit_pose";
@@ -88,7 +91,7 @@ geometry_msgs::PoseStamped actual_pose;
 geometry_msgs::PoseStamped hit_pose;
 double hit_range = 12.0;
 visualization_msgs::Marker hit_marker;
-nav_msgs::Odometry hitpoint_global;
+
 
 
 void odomCallBack(const nav_msgs::Odometry msg)
@@ -153,7 +156,7 @@ int main(int argc, char **argv)
     ros::Publisher hit_pub = n.advertise<visualization_msgs::Marker>("hit_pose", 1000);
     ros::ServiceClient client = n.serviceClient<wot_pkg::is_hit>("is_hit");
     wot_pkg::is_hit srv;
-    srv.request.hit_location = hitpoint_global;
+    srv.request.hit_location = tf_publisher.hitpoint_global;
     srv.request.hitbox = hit_marker;
 
     ros::Rate r(10);
@@ -185,7 +188,18 @@ int main(int argc, char **argv)
         pub.publish(msg);           
         vis_pub.publish(cluster_marker);
         hit_pub.publish(hit_marker);
-        ROS_INFO("I heard: [%f]", );
+        
+        
+        
+        
+        if(client.call(srv))
+        {
+            ROS_INFO("Hit: %d", (int)srv.response.is_hit);
+        }
+        else
+        {
+            ROS_ERROR("Failed to call service is_hit");
+        }
         
         
         ros::spinOnce();

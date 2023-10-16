@@ -16,6 +16,9 @@ find_package(catkin REQUIRED COMPONENTS
   tf2_geometry_msgs
   tf2_ros
   nav_msgs
+  visualization_msgs
+  geometry_msgs
+  
 )
 
 ## System dependencies are found with CMake's conventions
@@ -73,10 +76,12 @@ add_service_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  visualization_msgs
+  nav_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -123,6 +128,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  
 )
 
 ## Declare a C++ library
@@ -157,6 +163,8 @@ add_executable(vehicle_node src/vehicle_node.cpp)
 # )
 target_link_libraries(master_node ${catkin_LIBRARIES})
 target_link_libraries(vehicle_node ${catkin_LIBRARIES})
+
+
 #############
 ## Install ##
 #############

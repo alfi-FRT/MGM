@@ -1,6 +1,6 @@
 # Request
-visualization_msgs/MarkerArray hitbox
-geometry_msgs/PoseStamped hit_location
+visualization_msgs/Marker hitbox
+nav_msgs/Odometry hit_location
 
 ---
 

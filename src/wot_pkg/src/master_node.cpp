@@ -21,16 +21,16 @@ void coordinatesCallback(const std_msgs::String::ConstPtr& msg)
    ROS_INFO("I heard: [%s]", msg->data.c_str());
 };
 
-bool isHit(wot_pkg::is_hit::Request &req, wot_pkg::is_hit::Response &res)) {
+bool isHit(wot_pkg::is_hit::Request &req, wot_pkg::is_hit::Response &res) {
    
-    Eigen::Vector3d point_eigen(req.hit_location.pose.position.x, req.hit_location.pose.position.y, req.hit_location.pose.position.z);
-    Eigen::Vector3d box_center(req.hitbox.pose.position.x, req.hitbox.pose.position.y, req.hitbox.pose.position.z);
+    Eigen::Vector3d point_eigen(req.hit_location.pose.pose.position.x, req.hit_location.pose.pose.position.y, req.hit_location.pose.pose.position.z);
+    Eigen::Vector3d hitbox_center(req.hitbox.pose.position.x, req.hitbox.pose.position.y, req.hitbox.pose.position.z);
 
-    Eigen::Vector3d half_lengths(box.scale.x / 2.0, box.scale.y / 2.0, box.scale.z / 2.0);
+    Eigen::Vector3d half_lengths(req.hitbox.scale.x / 2.0, req.hitbox.scale.y / 2.0, req.hitbox.scale.z / 2.0);
 
-    Eigen::Quaterniond box_rotation(box.pose.orientation.w, box.pose.orientation.x, box.pose.orientation.y, box.pose.orientation.z);
+    Eigen::Quaterniond hitbox_rotation(req.hitbox.pose.orientation.w, req.hitbox.pose.orientation.x, req.hitbox.pose.orientation.y, req.hitbox.pose.orientation.z);
   
-    Eigen::Vector3d rel_pos = box_rotation.inverse() * (point_eigen - box_center);
+    Eigen::Vector3d rel_pos = hitbox_rotation.inverse() * (point_eigen - hitbox_center);
 
     res.is_hit =  (std::abs(rel_pos.x()) <= half_lengths.x() && std::abs(rel_pos.y()) <= half_lengths.y() && std::abs(rel_pos.z()) <= half_lengths.z());
 

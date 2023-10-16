@@ -24,4 +24,7 @@
 
     <node name="$(arg agent)transform_map_odom" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 map $(arg agent)/odom" />
 
+    <param name="robot_description" command="$(find xacro)/xacro $(find hamster_vehicle_description)/urdf/hamster.urdf.xacro"/>
+
+
 </launch>

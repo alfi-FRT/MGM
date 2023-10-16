@@ -7,7 +7,7 @@
     <node pkg="wot_pkg" name="master_node" type="master_node"/>
 
     <include file="$(find hamster_vehicle_gazebo)/launch/hamster_world.launch">
-		<arg name="gui" value="true"/>
+		<arg name="gui" value="false"/>
 		<arg name="world_name" value="$(find hamster_vehicle_gazebo)/worlds/cogni_office.world"/>
 	</include>
 
@@ -29,6 +29,5 @@
 
 	<node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find hamster_vehicle)/rviz/hamsters.rviz"/> 
 
-	<param name="robot_description" command="$(find xacro)/xacro $(find hamster_vehicle_description)/urdf/hamster.urdf.xacro"/>
-
+	
 </launch>

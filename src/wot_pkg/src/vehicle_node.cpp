@@ -154,7 +154,7 @@ int main(int argc, char **argv)
     ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 1000 );
     ros::Subscriber scanner = n.subscribe("/" + vehicle_name + "/scan", 1000, scanCallBack);
     ros::Publisher hit_pub = n.advertise<visualization_msgs::Marker>("hit_pose", 1000);
-    ros::ServiceClient client = n.serviceClient<wot_pkg::is_hit>("is_hit");
+    ros::ServiceClient client = n.serviceClient<wot_pkg::is_hit>("/is_hit");
     wot_pkg::is_hit srv;
     srv.request.hit_location = tf_publisher.hitpoint_global;
     srv.request.hitbox = hit_marker;

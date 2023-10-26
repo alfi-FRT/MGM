@@ -1,8 +1,8 @@
 # Request
-visualization_msgs/Marker hitbox
 nav_msgs/Odometry hit_location
+string vehicle_name
 
 ---
 
 # Response
-bool is_hit
+std_msgs/Int32 is_hit

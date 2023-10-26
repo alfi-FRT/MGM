@@ -5,6 +5,7 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <visualization_msgs/Marker.h>
+#include <visualization_msgs/MarkerArray.h>
 #include <sensor_msgs/LaserScan.h>
 #include <tf/transform_datatypes.h>
 #include <tf2_ros/transform_listener.h>
@@ -13,6 +14,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include "wot_pkg/is_hit.h"
+#include <std_msgs_stamped/BoolStamped.h>
 
 
 
@@ -27,6 +29,7 @@ struct tf_pub{
 	}
 	~tf_pub(){}
 
+    
     void callback_odom(const nav_msgs::Odometry::ConstPtr& msg){
 		
 	    geometry_msgs::TransformStamped tf_stamped;
@@ -37,6 +40,7 @@ struct tf_pub{
 		tf_stamped.transform.translation.x = msg -> pose.pose.position.x;
 		tf_stamped.transform.translation.y = msg -> pose.pose.position.y;
 		tf_stamped.transform.translation.z = msg -> pose.pose.position.z;
+
 		
 		tf_stamped.transform.rotation = msg -> pose.pose.orientation;
 		
@@ -49,6 +53,7 @@ struct tf_pub{
 	}
 
     nav_msgs::Odometry hitpoint_global;
+    
 
     void cal_odom(ros::Time tmstamp){
         std::string target_frame = "global_hit_pose";
@@ -74,9 +79,9 @@ struct tf_pub{
         hitpoint_global.pose.pose = transformed_point.pose;
 			
 		pub.publish(hitpoint_global);
-        }	
+}	
     }
-
+    
     ros::NodeHandle n;
 	ros::Subscriber sub;
 	ros::Publisher pub;
@@ -92,8 +97,6 @@ geometry_msgs::PoseStamped hit_pose;
 double hit_range = 12.0;
 visualization_msgs::Marker hit_marker;
 
-
-
 void odomCallBack(const nav_msgs::Odometry msg)
 {		
     actual_pose.pose = msg.pose.pose;
@@ -104,14 +107,14 @@ void scanCallBack(const sensor_msgs::LaserScan msg)
     hit_range = 12;		
     for (int i = 0; i <= 4 ; i++)
     {
-        if (msg.ranges[i] < hit_range && msg.ranges[i] > 0.1)
+        if (msg.ranges[i] < hit_range && msg.ranges[i] > 0.15)
         {
             hit_range = msg.ranges[i];
         }
     }
     for (int i= msg.ranges.size()-4; i <= msg.ranges.size(); i++)
     {
-        if (msg.ranges[i] < hit_range && msg.ranges[i] > 0.1)
+        if (msg.ranges[i] < hit_range && msg.ranges[i] > 0.15)
         {
             hit_range = msg.ranges[i];
         }
@@ -136,6 +139,12 @@ void scanCallBack(const sensor_msgs::LaserScan msg)
     hit_marker.scale.z = 0.1;
 }
 
+bool shoot = false;
+void shootCallBack(const std_msgs_stamped::BoolStamped msg)
+{
+    shoot=msg.data;
+}
+    
 
 int main(int argc, char **argv)
 {
@@ -149,6 +158,7 @@ int main(int argc, char **argv)
     n.param<std::string>("/" + vehicle_name + "/odom/ground_truth" , odom_topic_name, "/" + vehicle_name + "/odom/ground_truth");
     n.param<std::string>("/" + vehicle_name + "/position" , pose_topic_name, "/" + vehicle_name + "/position");
 
+    
     ros::Subscriber sub = n.subscribe(odom_topic_name, 1000, odomCallBack);
     ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);   
     ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 1000 );
@@ -157,9 +167,9 @@ int main(int argc, char **argv)
     ros::ServiceClient client = n.serviceClient<wot_pkg::is_hit>("/is_hit");
     wot_pkg::is_hit srv;
     srv.request.hit_location = tf_publisher.hitpoint_global;
-    srv.request.hitbox = hit_marker;
 
-    ros::Rate r(10);
+
+    ros::Rate r(100);
 
     visualization_msgs::Marker cluster_marker;
     cluster_marker.header.stamp = ros::Time();			
@@ -179,8 +189,8 @@ int main(int argc, char **argv)
     cluster_marker.scale.x = 0.25;			
     cluster_marker.scale.y = 0.2;			
     cluster_marker.scale.z = 0.15;
-
-
+    
+    
     while (ros::ok())
     {
         geometry_msgs::PoseStamped msg;
@@ -188,20 +198,14 @@ int main(int argc, char **argv)
         pub.publish(msg);           
         vis_pub.publish(cluster_marker);
         hit_pub.publish(hit_marker);
-        
-        
-        
-        
-        if(client.call(srv))
+        if (shoot)
         {
-            ROS_INFO("Hit: %d", (int)srv.response.is_hit);
+            srv.request.hit_location = tf_publisher.hitpoint_global;
+            srv.request.vehicle_name = vehicle_name;
+            ros::service::call("/is_hit", srv);
+            //ROS_INFO("Hit: %d", (int)srv.response.is_hit);
         }
-        else
-        {
-            ROS_ERROR("Failed to call service is_hit");
-        }
-        
-        
+       
         ros::spinOnce();
         r.sleep();
     }

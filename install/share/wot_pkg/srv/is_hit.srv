@@ -1,0 +1,8 @@
+# Request
+visualization_msgs/Marker hitbox
+nav_msgs/Odometry hit_location
+
+---
+
+# Response
+bool is_hit

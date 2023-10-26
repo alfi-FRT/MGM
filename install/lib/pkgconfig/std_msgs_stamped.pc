@@ -1,0 +1,8 @@
+prefix=/home/adamalfoldi/MGM/install
+
+Name: std_msgs_stamped
+Description: Description of std_msgs_stamped
+Version: 1.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: std_msgs

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<arg name="agent" default="agent1"/>
+	<arg name="x" default="0.0"/>
+	<arg name="y" default="0.0"/>
+	<arg name="z" default="0.0"/>
+	<arg name="roll" default="0.0"/>
+	<arg name="pitch" default="0.0"/>
+	<arg name="yaw" default="0.0"/>
+	<arg name="is_publishTF" default="true"/>
+	<arg name="tf_target_topic" default="odom/ground_truth"/>
+	<arg name="robot_version" default="V6"/>
+	<arg name="simulation" default="true"/>
+	
+	
+	<group ns="$(arg agent)">
+		<!-- Spawn the vehicle. -->
+		<param name="vehicle_name" value="$(arg agent)"/>
+		<param name="robot_description" 
+					command="$(find xacro)/xacro --inorder $(find hamster_vehicle_description)/urdf/hamster.urdf.xacro
+													agent:=$(arg agent) 
+													robot_version:=$(arg robot_version) 
+													is_publishTF:=$(arg is_publishTF) 
+													tf_target_topic:=$(arg tf_target_topic) 
+													is_simulation:=$(arg simulation)"/>
+		
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+			<param name="publish_frequency" type = "double" value="50.0" />
+			<!--param name="tf_prefix" value="$(arg agent)" /-->
+		</node>
+		
+		<node name="joint_state_publisher_simulation" pkg="joint_state_publisher" type="joint_state_publisher">
+            <param name="rate" type = "double" value="50.0" />
+        </node>
+		
+		<node if="$(arg simulation)" name="spawn_vehicle" pkg="gazebo_ros" type="spawn_model"
+						args="-urdf 
+									-param /$(arg agent)/robot_description
+									-model $(arg agent)
+									-x $(arg x) 
+									-y $(arg y) 
+									-z $(arg z)
+									-R $(arg roll) 
+									-P $(arg pitch) 
+									-Y $(arg yaw)"/>
+	</group>
+
+</launch>

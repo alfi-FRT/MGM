@@ -7,6 +7,7 @@ FIND_PACKAGE(
   roscpp
   sensor_msgs
   geometry_msgs
+  std_msgs
 )
 
 FIND_PACKAGE(Boost REQUIRED COMPONENTS)

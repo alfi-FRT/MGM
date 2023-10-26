@@ -3,10 +3,11 @@
 import roslib
 import rospy
 from ackermann_msgs.msg import AckermannDriveStamped
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Bool
 import sys, select, termios, tty
 import _thread as thread
 from numpy import clip
+from std_msgs_stamped.msg import BoolStamped
 
 control_keys = {
     'up'    : '\x41',
@@ -14,7 +15,8 @@ control_keys = {
     'right' : '\x43',
     'left'  : '\x44',
     'space' : '\x20',
-    'tab'   : '\x09'}
+    'tab'   : '\x09',
+    'r'     : '\x72'}
 
 key_bindings = {
     '\x41' : ( 0.5 , 0.0),
@@ -22,7 +24,8 @@ key_bindings = {
     '\x43' : ( 0.0 ,-0.1),
     '\x44' : ( 0.0 , 0.1),
     '\x20' : ( 0.0 , 0.0),
-    '\x09' : ( 0.0 , 0.0)}
+    '\x09' : ( 0.0 , 0.0),
+    '\x72' : ( 0.0 , 0.0)}
 
 
 class AckermannDriveKeyop:
@@ -30,6 +33,7 @@ class AckermannDriveKeyop:
         self.max_speed = float(rospy.get_param('~max_speed',0.5))
         self.max_steering_angle = float(rospy.get_param('~max_steering_angle',0.5))
         self.cmd_topic = rospy.get_param('~topic','/agent1/ackermann_cmd')
+        self.shooting_topic = rospy.get_param('~shooting_topic','/agent1/shooting')
         self.frame = rospy.get_param('~frame','agent1/base_link')
 
         self.speed_range = [-float(self.max_speed), float(self.max_speed)]
@@ -39,11 +43,15 @@ class AckermannDriveKeyop:
             key_bindings[key] = \
                     (key_bindings[key][0] * float(self.max_speed) / 5,
                      key_bindings[key][1] * float(self.max_steering_angle) / 5)
-
+            
+        self.shooting = False
         self.speed = 0
         self.steering_angle = 0
         self.motors_pub = rospy.Publisher(
             self.cmd_topic, AckermannDriveStamped, queue_size=1)
+        # Shooting publisher
+        self.shooting_pub = rospy.Publisher(
+            self.shooting_topic, BoolStamped, queue_size=1) 
         rospy.Timer(rospy.Duration(1.0/5.0), self.pub_callback, oneshot=False)
         rospy.on_shutdown(self.finalize)
         self.print_state()
@@ -56,12 +64,21 @@ class AckermannDriveKeyop:
         ackermann_cmd_msg.drive.speed = self.speed
         ackermann_cmd_msg.drive.steering_angle = self.steering_angle
         self.motors_pub.publish(ackermann_cmd_msg)
+        shooting_msg = BoolStamped()
+        shooting_msg.header.stamp = rospy.Time.now()
+        shooting_msg.header.frame_id = self.frame
+        shooting_msg.data = self.shooting
+
+        # Publish shooting message
+        self.shooting_pub.publish(shooting_msg)
+        self.shooting = False
 
     def print_state(self):
         sys.stderr.write('\x1b[2J\x1b[H')
         rospy.loginfo('\x1b[1M\r*********************************************')
         rospy.loginfo('\x1b[1M\rUse arrows to change speed and steering angle')
         rospy.loginfo('\x1b[1M\rUse space to brake and tab to align wheels')
+        rospy.loginfo('\x1b[1M\rUse r to shoot')
         rospy.loginfo('\x1b[1M\rPress <ctrl-c> or <q> to exit')
         rospy.loginfo('\x1b[1M\r*********************************************')
         rospy.loginfo('\x1b[1M\r'
@@ -86,6 +103,9 @@ class AckermannDriveKeyop:
                     self.speed = 0.0
                 elif key == control_keys['tab']:
                     self.steering_angle = 0.0
+                # 
+                elif key == control_keys['r']:
+                    self.shooting = True
                 else:
                     self.speed = self.speed + key_bindings[key][0]
                     self.steering_angle = \
@@ -109,6 +129,10 @@ class AckermannDriveKeyop:
         ackermann_cmd_msg = AckermannDriveStamped()
         ackermann_cmd_msg.drive.speed = 0
         ackermann_cmd_msg.drive.steering_angle = 0
+        shooting_msg = BoolStamped()
+        shooting_msg.data = False
+        # Publish shooting message
+        self.shooting_pub.publish(shooting_msg)
         self.motors_pub.publish(ackermann_cmd_msg)
         #  sys.exit()
 

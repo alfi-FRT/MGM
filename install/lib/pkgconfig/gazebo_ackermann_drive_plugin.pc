@@ -1,0 +1,8 @@
+prefix=/home/adamalfoldi/MGM/install
+
+Name: gazebo_ackermann_drive_plugin
+Description: Description of gazebo_ackermann_drive_plugin
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp gazebo_ros random_numbers

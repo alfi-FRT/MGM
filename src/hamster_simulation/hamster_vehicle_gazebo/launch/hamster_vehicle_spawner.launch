@@ -37,6 +37,7 @@
 			 <node pkg="hamster_teleop" type="keyboard.py" name="$(arg agent)_keyboard" output="screen">
 				<param name="topic" value="$(arg agent)/ackermann_cmd" />
 				<param name="frame" value="$(arg agent)/base_link" />
+				<param name="shooting_topic" value="$(arg agent)/shooting"/>
 			</node> 
 		 </group>
 		 

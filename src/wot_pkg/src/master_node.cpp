@@ -21,17 +21,12 @@ struct tf_pub{
 
     tf_pub(ros::NodeHandle n_):n(n_),tfListener(tfBuffer)
     {
+        
 		
 	}
 	~tf_pub(){}
 
-    tf2_ros::Buffer tfBuffer;
-    tf2_ros::TransformBroadcaster broadcaster;
     nav_msgs::Odometry hitpoint_relative;
-    ros::NodeHandle n;
-    ros::Publisher pub;
-    tf2_ros::TransformListener tfListener;
-
 
 
     nav_msgs::Odometry cal_odom(ros::Time tmstamp, std_msgs::Int32 i){
@@ -81,12 +76,12 @@ struct tf_pub{
         return cal_odom(msg.header.stamp, i);
     }
 
-    int whichHit(const nav_msgs::Odometry::ConstPtr& hit_location, const visualization_msgs::MarkerArray::ConstPtr& hitboxes) 
+    int whichHit( nav_msgs::Odometry hit_location, visualization_msgs::MarkerArray hitboxes) 
     {
         std_msgs::Int32 std_i;
         int i = 0;
-        nav_msgs::Odometry hit_location_value = *hit_location;
-        for (auto hitbox : hitboxes->markers) {
+        nav_msgs::Odometry hit_location_value = hit_location;
+        for (auto hitbox : hitboxes.markers) {
             std_i.data = i;
             auto hit_base = callback_odom(hit_location_value, std_i);
             if(hit_base.pose.pose.position.x <= hitbox.pose.position.x + hitbox.scale.x/2 && hit_base.pose.pose.position.x >= hitbox.pose.position.x - hitbox.scale.x/2 && 
@@ -99,6 +94,28 @@ struct tf_pub{
         }
         return -1;
     }
+
+    visualization_msgs::MarkerArray global_marker_array;
+
+    void markerCallback(const visualization_msgs::Marker::ConstPtr& msg )
+    {
+        global_marker_array.markers.push_back(*msg);
+    }
+
+    bool isHit(wot_pkg::is_hit::Request &req, wot_pkg::is_hit::Response &res)
+    {
+        res.is_hit.data = whichHit(req.hit_location, global_marker_array);
+        ROS_INFO("%d",res.is_hit.data);
+        return true;
+    }
+
+    tf2_ros::Buffer tfBuffer;
+    tf2_ros::TransformBroadcaster broadcaster;
+    
+    ros::NodeHandle n;
+    ros::Publisher pub;
+    tf2_ros::TransformListener tfListener;
+
 };
 
 // Subscriber to the coordinates topic
@@ -108,31 +125,21 @@ void coordinatesCallback(const std_msgs::String::ConstPtr& msg)
 }
 
 
-bool isHit(wot_pkg::is_hit::Request &req, wot_pkg::is_hit::Response &res)
-{
-
-    res.is_hit.data = 0;
-    return true;
-}
-
-
-
-
-
 
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "master_node");
     ros::NodeHandle n("~");
-    tf_pub tf_pub(n);
+    tf_pub hp_tf(n);
     ros::Publisher pub = n.advertise<std_msgs::String>("master_topic", 1000);
-    /*
-    for(int i = 0; i < 3; i++){
-        std::string vehicle_number = std::to_string(i+1);
-        std::string topic_name = "vehicle" + vehicle_number + "/visualization_marker";
-        ros::Subscriber sub = n.subscribe(topic_name, 1000, coordinatesCallback);
-    }*/
-    ros::ServiceServer service = n.advertiseService("is_hit", isHit);
+    std::vector<ros::Subscriber> subs(2);
+        for(int i = 0; i < 2; i++){
+            std::string vehicle_number = std::to_string(i+1);
+            std::string topic_name = "/vehicle" + vehicle_number + "/visualization_marker";
+            subs[i] = n.subscribe(topic_name, 1000, &tf_pub::markerCallback, &hp_tf);
+        }
+    ros::ServiceServer service = n.advertiseService("/is_hit", &tf_pub::isHit, &hp_tf);
+    
     ros::Rate r(100);
     while (ros::ok())
     {

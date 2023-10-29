@@ -158,7 +158,7 @@ int main(int argc, char **argv)
     n.param<std::string>("/" + vehicle_name + "/odom/ground_truth" , odom_topic_name, "/" + vehicle_name + "/odom/ground_truth");
     n.param<std::string>("/" + vehicle_name + "/position" , pose_topic_name, "/" + vehicle_name + "/position");
 
-    
+    ros::Subscriber shoot_sub = n.subscribe("/" + vehicle_name + "/shooting", 1000, shootCallBack);
     ros::Subscriber sub = n.subscribe(odom_topic_name, 1000, odomCallBack);
     ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);   
     ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 1000 );
@@ -169,7 +169,7 @@ int main(int argc, char **argv)
     srv.request.hit_location = tf_publisher.hitpoint_global;
 
 
-    ros::Rate r(100);
+    ros::Rate r(1);
 
     visualization_msgs::Marker cluster_marker;
     cluster_marker.header.stamp = ros::Time();			
@@ -188,7 +188,8 @@ int main(int argc, char **argv)
     cluster_marker.color.a = 1.0;			
     cluster_marker.scale.x = 0.25;			
     cluster_marker.scale.y = 0.2;			
-    cluster_marker.scale.z = 0.15;
+    cluster_marker.scale.z = 0.55;
+
     
     
     while (ros::ok())
@@ -203,9 +204,14 @@ int main(int argc, char **argv)
             srv.request.hit_location = tf_publisher.hitpoint_global;
             srv.request.vehicle_name = vehicle_name;
             ros::service::call("/is_hit", srv);
-            //ROS_INFO("Hit: %d", (int)srv.response.is_hit);
+            ROS_INFO("Hit:%d\n", srv.response.is_hit.data);
+            //client.call(srv);
         }
-       
+        else
+        {
+            ROS_INFO("Not shooting");
+        }
+        ROS_INFO("%d",shoot);
         ros::spinOnce();
         r.sleep();
     }

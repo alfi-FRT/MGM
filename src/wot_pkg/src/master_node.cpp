@@ -26,10 +26,10 @@ struct tf_pub{
 	}
 	~tf_pub(){}
 
-    nav_msgs::Odometry hitpoint_relative;
+    geometry_msgs::PoseStamped hitpoint_relative;
 
 
-    nav_msgs::Odometry cal_odom(ros::Time tmstamp, std_msgs::Int32 i){
+    geometry_msgs::PoseStamped cal_odom(ros::Time tmstamp, std_msgs::Int32 i){
         std::string target_frame = "map";
         std::string vehicle_number = std::to_string(i.data+1);
         std::string source_frame = "vehicle" + vehicle_number + "/base_link";
@@ -51,42 +51,41 @@ struct tf_pub{
                 
         
         hitpoint_relative.header = trans_world2baselink.header;
-        hitpoint_relative.child_frame_id = trans_world2baselink.child_frame_id;
-        hitpoint_relative.pose.pose = transformed_point.pose;
+        
+        hitpoint_relative.pose = transformed_point.pose;
         return hitpoint_relative;    
         }
         return hitpoint_relative;
     }	
 
-    nav_msgs::Odometry callback_odom( nav_msgs::Odometry msg, std_msgs::Int32 i){
+    geometry_msgs::PoseStamped callback_odom( geometry_msgs::PoseStamped msg, std_msgs::Int32 i){
         
         geometry_msgs::TransformStamped tf_stamped;
         tf_stamped.header = msg.header;
-        tf_stamped.child_frame_id = msg.child_frame_id;
         
 
-        tf_stamped.transform.translation.x = msg.pose.pose.position.x;
-        tf_stamped.transform.translation.y = msg.pose.pose.position.y;
-        tf_stamped.transform.translation.z = msg.pose.pose.position.z;
+        tf_stamped.transform.translation.x = msg.pose.position.x;
+        tf_stamped.transform.translation.y = msg.pose.position.y;
+        tf_stamped.transform.translation.z = msg.pose.position.z;
     
-        tf_stamped.transform.rotation = msg.pose.pose.orientation;
+        tf_stamped.transform.rotation = msg.pose.orientation;
         
         broadcaster.sendTransform(tf_stamped);
 
         return cal_odom(msg.header.stamp, i);
     }
 
-    int whichHit( nav_msgs::Odometry hit_location, visualization_msgs::MarkerArray hitboxes) 
+    int whichHit( geometry_msgs::PoseStamped hit_location, visualization_msgs::MarkerArray hitboxes) 
     {
         std_msgs::Int32 std_i;
         int i = 0;
-        nav_msgs::Odometry hit_location_value = hit_location;
+        geometry_msgs::PoseStamped hit_location_value = hit_location;
         for (auto hitbox : hitboxes.markers) {
             std_i.data = i;
             auto hit_base = callback_odom(hit_location_value, std_i);
-            if(hit_base.pose.pose.position.x <= hitbox.pose.position.x + hitbox.scale.x/2 && hit_base.pose.pose.position.x >= hitbox.pose.position.x - hitbox.scale.x/2 && 
-            hit_base.pose.pose.position.y <= hitbox.pose.position.y + hitbox.scale.y/2 && hit_base.pose.pose.position.y >= hitbox.pose.position.y - hitbox.scale.y/2 && 
-            hit_base.pose.pose.position.z <= hitbox.pose.position.z + hitbox.scale.z/2 && hit_base.pose.pose.position.z >= hitbox.pose.position.z - hitbox.scale.z/2)
+            if(hit_base.pose.position.x <= hitbox.pose.position.x + hitbox.scale.x/2 && hit_base.pose.position.x >= hitbox.pose.position.x - hitbox.scale.x/2 && 
+            hit_base.pose.position.y <= hitbox.pose.position.y + hitbox.scale.y/2 && hit_base.pose.position.y >= hitbox.pose.position.y - hitbox.scale.y/2 && 
+            hit_base.pose.position.z <= hitbox.pose.position.z + hitbox.scale.z/2 && hit_base.pose.position.z >= hitbox.pose.position.z - hitbox.scale.z/2)
                 {
                     return i+1;
                 }
@@ -104,7 +103,9 @@ struct tf_pub{
 
     bool isHit(wot_pkg::is_hit::Request &req, wot_pkg::is_hit::Response &res)
     {
-        res.is_hit.data = whichHit(req.hit_location, global_marker_array);
+        geometry_msgs::PoseStamped hit_location;
+        hit_location.pose = req.hit_location.pose.pose;
+        res.is_hit.data = whichHit(hit_location, global_marker_array);
         ROS_INFO("%d",res.is_hit.data);
         return true;
     }
@@ -131,7 +132,7 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "master_node");
     ros::NodeHandle n("~");
     tf_pub hp_tf(n);
-    ros::Publisher pub = n.advertise<std_msgs::String>("master_topic", 1000);
+    //ros::Publisher pub = n.advertise<std_msgs::String>("master_topic", 1000);
     std::vector<ros::Subscriber> subs(2);
         for(int i = 0; i < 2; i++){
             std::string vehicle_number = std::to_string(i+1);
@@ -140,12 +141,12 @@ int main(int argc, char **argv)
         }
     ros::ServiceServer service = n.advertiseService("/is_hit", &tf_pub::isHit, &hp_tf);
     
-    ros::Rate r(100);
+    ros::Rate r(1);
     while (ros::ok())
     {
         std_msgs::String msg;
         msg.data = "Itt vagyok!";
-        pub.publish(msg);
+        //pub.publish(msg);
         ros::Subscriber sub = n.subscribe("coordinates", 1000, coordinatesCallback);
         ros::spinOnce();
         r.sleep();

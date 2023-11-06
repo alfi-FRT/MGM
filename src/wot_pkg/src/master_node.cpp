@@ -63,6 +63,7 @@ struct tf_pub{
         geometry_msgs::TransformStamped tf_stamped;
         tf_stamped.header = msg.header;
         
+        
 
         tf_stamped.transform.translation.x = msg.pose.position.x;
         tf_stamped.transform.translation.y = msg.pose.position.y;
@@ -103,9 +104,7 @@ struct tf_pub{
 
     bool isHit(wot_pkg::is_hit::Request &req, wot_pkg::is_hit::Response &res)
     {
-        geometry_msgs::PoseStamped hit_location;
-        hit_location.pose = req.hit_location.pose.pose;
-        res.is_hit.data = whichHit(hit_location, global_marker_array);
+        res.is_hit.data = whichHit(req.hit_location, global_marker_array);
         ROS_INFO("%d",res.is_hit.data);
         return true;
     }
@@ -132,7 +131,7 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "master_node");
     ros::NodeHandle n("~");
     tf_pub hp_tf(n);
-    //ros::Publisher pub = n.advertise<std_msgs::String>("master_topic", 1000);
+    ros::Publisher pub = n.advertise<std_msgs::String>("master_topic", 1000);
     std::vector<ros::Subscriber> subs(2);
         for(int i = 0; i < 2; i++){
             std::string vehicle_number = std::to_string(i+1);
@@ -141,12 +140,12 @@ int main(int argc, char **argv)
         }
     ros::ServiceServer service = n.advertiseService("/is_hit", &tf_pub::isHit, &hp_tf);
     
-    ros::Rate r(1);
+    ros::Rate r(100);
     while (ros::ok())
     {
         std_msgs::String msg;
         msg.data = "Itt vagyok!";
-        //pub.publish(msg);
+        pub.publish(msg);
         ros::Subscriber sub = n.subscribe("coordinates", 1000, coordinatesCallback);
         ros::spinOnce();
         r.sleep();

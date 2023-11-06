@@ -1,5 +1,5 @@
 # Request
-nav_msgs/Odometry hit_location
+geometry_msgs/PoseStamped hit_location
 string vehicle_name
 
 ---

@@ -140,11 +140,6 @@ struct visualizer{
 
 };
 
-void odomCallBack(const nav_msgs::Odometry msg)
-{		
-    actual_pose.pose = msg.pose.pose;
-}
-
 bool shoot = false;
 void shootCallBack(const std_msgs_stamped::BoolStamped msg)
 {
@@ -156,16 +151,9 @@ int main(int argc, char **argv)
     ros::init(argc, argv,"vehicle_node");
     ros::NodeHandle n("~");
     tf_pub tf_publisher(n);
-    std::string vehicle_name;
-    n.getParam("vehicle_name", vehicle_name);
-    std::string odom_topic_name;
-    std::string pose_topic_name;
-    n.param<std::string>("/" + vehicle_name + "/odom/ground_truth" , odom_topic_name, "/" + vehicle_name + "/odom/ground_truth");
-    n.param<std::string>("/" + vehicle_name + "/position" , pose_topic_name, "/" + vehicle_name + "/position");
 
     ros::Subscriber shoot_sub = n.subscribe("/" + vehicle_name + "/shooting", 1000, shootCallBack);
-    ros::Subscriber sub = n.subscribe(odom_topic_name, 1000, odomCallBack);
-    ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);   
+
     ros::ServiceClient client = n.serviceClient<wot_pkg::is_hit>("/is_hit");
     wot_pkg::is_hit srv;
     srv.request.hit_location = tf_publisher.hitpoint_global;
@@ -179,9 +167,6 @@ int main(int argc, char **argv)
     
     while (ros::ok())
     {
-        geometry_msgs::PoseStamped msg;
-        msg.pose = actual_pose.pose;
-        pub.publish(msg);
         visualize_bounding_box.vis_bounding_box(bounding_box_marker);
 
         if (shoot)

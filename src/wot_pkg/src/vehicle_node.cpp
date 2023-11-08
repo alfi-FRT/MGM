@@ -107,6 +107,39 @@ struct tf_pub{
     tf2_ros::TransformBroadcaster broadcaster;
 };
 
+struct visualizer{
+    visualizer(ros::NodeHandle n_):n(n_)
+    {
+        bounding_box_pub = n.advertise<visualization_msgs::Marker>("bounding_box", 1000);
+    }
+    ~visualizer(){}
+
+    void vis_bounding_box(visualization_msgs::Marker& marker){
+        marker.header.stamp = ros::Time();			
+        marker.header.frame_id = vehicle_name + "/base_link";			
+        marker.action = visualization_msgs::Marker::ADD;			
+        marker.lifetime = ros::Duration(0.5);			
+        marker.ns = "bounding_box";			
+        marker.type = visualization_msgs::Marker::CUBE;			
+        marker.pose.position.x = 0;			
+        marker.pose.position.y = 0;			
+        marker.pose.position.z = 0;		
+        marker.pose.orientation.w = 1.0;			
+        marker.color.r = 0.0;			
+        marker.color.g = 0.0;			
+        marker.color.b = 1.0;			
+        marker.color.a = 1.0;			
+        marker.scale.x = 0.25;			
+        marker.scale.y = 0.2;			
+        marker.scale.z = 0.55;
+        bounding_box_pub.publish(marker);
+    }
+
+    ros::NodeHandle n;
+    ros::Publisher bounding_box_pub;
+
+};
+
 void odomCallBack(const nav_msgs::Odometry msg)
 {		
     actual_pose.pose = msg.pose.pose;
@@ -117,7 +150,6 @@ void shootCallBack(const std_msgs_stamped::BoolStamped msg)
 {
     shoot=msg.data;
 }
-    
 
 int main(int argc, char **argv)
 {
@@ -134,7 +166,6 @@ int main(int argc, char **argv)
     ros::Subscriber shoot_sub = n.subscribe("/" + vehicle_name + "/shooting", 1000, shootCallBack);
     ros::Subscriber sub = n.subscribe(odom_topic_name, 1000, odomCallBack);
     ros::Publisher pub = n.advertise<geometry_msgs::PoseStamped>(pose_topic_name, 1000);   
-    ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>( "visualization_marker", 1000 );
     ros::ServiceClient client = n.serviceClient<wot_pkg::is_hit>("/is_hit");
     wot_pkg::is_hit srv;
     srv.request.hit_location = tf_publisher.hitpoint_global;
@@ -142,33 +173,17 @@ int main(int argc, char **argv)
 
     ros::Rate r(1);
 
-    visualization_msgs::Marker cluster_marker;
-    cluster_marker.header.stamp = ros::Time();			
-    cluster_marker.header.frame_id = vehicle_name + "/base_link";			
-    cluster_marker.action = visualization_msgs::Marker::ADD;			
-    cluster_marker.lifetime = ros::Duration(0.5);			
-    cluster_marker.ns = "bounding_box";			
-    cluster_marker.type = visualization_msgs::Marker::CUBE;			
-    cluster_marker.pose.position.x = 0;			
-    cluster_marker.pose.position.y = 0;			
-    cluster_marker.pose.position.z = 0;		
-    cluster_marker.pose.orientation.w = 1.0;			
-    cluster_marker.color.r = 0.0;			
-    cluster_marker.color.g = 0.0;			
-    cluster_marker.color.b = 1.0;			
-    cluster_marker.color.a = 1.0;			
-    cluster_marker.scale.x = 0.25;			
-    cluster_marker.scale.y = 0.2;			
-    cluster_marker.scale.z = 0.55;
-
+    visualization_msgs::Marker bounding_box_marker;
+    visualizer visualize_bounding_box(n);
     
     
     while (ros::ok())
     {
         geometry_msgs::PoseStamped msg;
         msg.pose = actual_pose.pose;
-        pub.publish(msg);           
-        vis_pub.publish(cluster_marker);
+        pub.publish(msg);
+        visualize_bounding_box.vis_bounding_box(bounding_box_marker);
+
         if (shoot)
         {
             srv.request.hit_location = tf_publisher.hitpoint_global;

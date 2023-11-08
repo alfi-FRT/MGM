@@ -1,7 +1,6 @@
 #include <ros/ros.h>
 #include <iostream>
 #include <std_msgs/String.h>
-#include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <visualization_msgs/Marker.h>
@@ -11,16 +10,10 @@
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
-#include <Eigen/Core>
-#include <Eigen/Geometry>
 #include "wot_pkg/is_hit.h"
 #include <std_msgs_stamped/BoolStamped.h>
 
 
-geometry_msgs::PoseStamped actual_pose;
-geometry_msgs::PoseStamped hit_pose;
-double hit_range = 12.0;
-visualization_msgs::Marker hit_marker;
 std::string vehicle_name;
 
 struct tf_pub{
@@ -55,26 +48,31 @@ struct tf_pub{
         hit_pose.pose.position.x = - hit_range ;
         hit_pose.pose.position.y = 0;
         hit_pose.pose.position.z = 0;
-        hit_pose.pose.orientation.w = 1.0; 
-        hit_marker.header = msg -> header;
-        hit_marker.id = 0;
-        hit_marker.action = visualization_msgs::Marker::ADD;
-        hit_marker.lifetime = ros::Duration(1);
-        hit_marker.ns = "hit_marker";
-        hit_marker.type = visualization_msgs::Marker::SPHERE;
-        hit_marker.pose = hit_pose.pose;
-        hit_marker.color.r = 1.0;
-        hit_marker.color.g = 0.0;
-        hit_marker.color.b = 0.0;
-        hit_marker.color.a = 1.0;
-        hit_marker.scale.x = 0.1;
-        hit_marker.scale.y = 0.1;
-        hit_marker.scale.z = 0.1;
+        hit_pose.pose.orientation.w = 1.0;
+
+        vis_hit_pose(hit_marker);
 
         hit_viz_pub.publish(hit_marker);
 
-
 		cal_scan(msg -> header.stamp);
+    }
+
+    void vis_hit_pose(visualization_msgs::Marker& marker){
+        marker.header.stamp = ros::Time();			
+        marker.header.frame_id = vehicle_name + "/lidar_link";
+        marker.id = 0;
+        marker.action = visualization_msgs::Marker::ADD;
+        marker.lifetime = ros::Duration(0.1);
+        marker.ns = "hit_marker";
+        marker.type = visualization_msgs::Marker::SPHERE;
+        marker.pose = hit_pose.pose;
+        marker.color.r = 1.0;
+        marker.color.g = 0.0;
+        marker.color.b = 0.0;
+        marker.color.a = 1.0;
+        marker.scale.x = 0.1;
+        marker.scale.y = 0.1;
+        marker.scale.z = 0.1;
     }
 
     geometry_msgs::PoseStamped hitpoint_global;
@@ -97,6 +95,10 @@ struct tf_pub{
         }	
     }
     
+    geometry_msgs::PoseStamped hit_pose;
+    double hit_range = 12.0;
+    visualization_msgs::Marker hit_marker;
+
     ros::NodeHandle n;
     ros::Subscriber scanner;
 	ros::Publisher hit_pose_pub;
@@ -108,9 +110,10 @@ struct tf_pub{
 };
 
 struct visualizer{
-    visualizer(ros::NodeHandle n_):n(n_)
+    visualizer(ros::NodeHandle n_, visualization_msgs::Marker& bounding_box_marker_):n(n_)
     {
         bounding_box_pub = n.advertise<visualization_msgs::Marker>("bounding_box", 1000);
+        vis_bounding_box(bounding_box_marker_);
     }
     ~visualizer(){}
 
@@ -118,7 +121,7 @@ struct visualizer{
         marker.header.stamp = ros::Time();			
         marker.header.frame_id = vehicle_name + "/base_link";			
         marker.action = visualization_msgs::Marker::ADD;			
-        marker.lifetime = ros::Duration(0.5);			
+        marker.lifetime = ros::Duration(0.1);			
         marker.ns = "bounding_box";			
         marker.type = visualization_msgs::Marker::CUBE;			
         marker.pose.position.x = 0;			
@@ -132,6 +135,9 @@ struct visualizer{
         marker.scale.x = 0.25;			
         marker.scale.y = 0.2;			
         marker.scale.z = 0.55;
+    }
+
+    void pub_bounding_box(visualization_msgs::Marker& marker){
         bounding_box_pub.publish(marker);
     }
 
@@ -159,15 +165,15 @@ int main(int argc, char **argv)
     srv.request.hit_location = tf_publisher.hitpoint_global;
 
 
-    ros::Rate r(1);
+    ros::Rate r(100);
 
     visualization_msgs::Marker bounding_box_marker;
-    visualizer visualize_bounding_box(n);
+    visualizer visualize_bounding_box(n, bounding_box_marker);
     
     
     while (ros::ok())
     {
-        visualize_bounding_box.vis_bounding_box(bounding_box_marker);
+        visualize_bounding_box.pub_bounding_box(bounding_box_marker);
 
         if (shoot)
         {

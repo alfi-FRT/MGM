@@ -12,8 +12,6 @@
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
-#include <Eigen/Core>
-#include <Eigen/Geometry>
 #include "wot_pkg/is_hit.h"
 
 
@@ -21,60 +19,31 @@ struct tf_pub{
 
     tf_pub(ros::NodeHandle n_):n(n_),tfListener(tfBuffer)
     {
-        
-		
+
 	}
 	~tf_pub(){}
 
     geometry_msgs::PoseStamped hitpoint_relative;
 
 
-    geometry_msgs::PoseStamped cal_odom(ros::Time tmstamp, std_msgs::Int32 i){
-        std::string target_frame = "map";
+    geometry_msgs::PoseStamped tf_hitpoint(geometry_msgs::PoseStamped msg, ros::Time tmstamp, std_msgs::Int32 i){
         std::string vehicle_number = std::to_string(i.data+1);
-        std::string source_frame = "vehicle" + vehicle_number + "/base_link";
-        if (tfBuffer.canTransform(source_frame,
-                            target_frame,
+        if (tfBuffer.canTransform("vehicle" + vehicle_number + "/base_link",
+                            "map",
                             tmstamp,
                             ros::Duration(0.01)))
         {
         // Getting the transformation
-        auto trans_world2baselink = tfBuffer.lookupTransform(source_frame,
-                                                    target_frame,
-                                                    tmstamp);           
-        geometry_msgs::PoseStamped transformed_point;
-        transformed_point.pose.position.x = 0.0;
-        transformed_point.pose.position.y = 0.0;
-        transformed_point.pose.position.z = 0.0;
-        transformed_point.pose.orientation.w = 1.0;
-        tf2::doTransform(transformed_point, transformed_point, trans_world2baselink);
+        auto trans_world2baselink = tfBuffer.lookupTransform("vehicle" + vehicle_number + "/base_link",
+                                                    "map",
+                                                    tmstamp);
+                   
+        tf2::doTransform(msg, hitpoint_relative, trans_world2baselink);
                 
-        
-        hitpoint_relative.header = trans_world2baselink.header;
-        
-        hitpoint_relative.pose = transformed_point.pose;
         return hitpoint_relative;    
         }
         return hitpoint_relative;
     }	
-
-    geometry_msgs::PoseStamped callback_odom( geometry_msgs::PoseStamped msg, std_msgs::Int32 i){
-        
-        geometry_msgs::TransformStamped tf_stamped;
-        tf_stamped.header = msg.header;
-        
-        
-
-        tf_stamped.transform.translation.x = msg.pose.position.x;
-        tf_stamped.transform.translation.y = msg.pose.position.y;
-        tf_stamped.transform.translation.z = msg.pose.position.z;
-    
-        tf_stamped.transform.rotation = msg.pose.orientation;
-        
-        broadcaster.sendTransform(tf_stamped);
-
-        return cal_odom(msg.header.stamp, i);
-    }
 
     int whichHit( geometry_msgs::PoseStamped hit_location, visualization_msgs::MarkerArray hitboxes) 
     {
@@ -83,7 +52,8 @@ struct tf_pub{
         geometry_msgs::PoseStamped hit_location_value = hit_location;
         for (auto hitbox : hitboxes.markers) {
             std_i.data = i;
-            auto hit_base = callback_odom(hit_location_value, std_i);
+            auto hit_base = tf_hitpoint(hit_location_value, ros::Time(), std_i);
+
             if(hit_base.pose.position.x <= hitbox.pose.position.x + hitbox.scale.x/2 && hit_base.pose.position.x >= hitbox.pose.position.x - hitbox.scale.x/2 && 
             hit_base.pose.position.y <= hitbox.pose.position.y + hitbox.scale.y/2 && hit_base.pose.position.y >= hitbox.pose.position.y - hitbox.scale.y/2 && 
             hit_base.pose.position.z <= hitbox.pose.position.z + hitbox.scale.z/2 && hit_base.pose.position.z >= hitbox.pose.position.z - hitbox.scale.z/2)
@@ -113,7 +83,6 @@ struct tf_pub{
     tf2_ros::TransformBroadcaster broadcaster;
     
     ros::NodeHandle n;
-    ros::Publisher pub;
     tf2_ros::TransformListener tfListener;
 
 };
@@ -135,7 +104,7 @@ int main(int argc, char **argv)
     std::vector<ros::Subscriber> subs(2);
         for(int i = 0; i < 2; i++){
             std::string vehicle_number = std::to_string(i+1);
-            std::string topic_name = "/vehicle" + vehicle_number + "/visualization_marker";
+            std::string topic_name = "/vehicle" + vehicle_number + "/bounding_box";
             subs[i] = n.subscribe(topic_name, 1000, &tf_pub::markerCallback, &hp_tf);
         }
     ros::ServiceServer service = n.advertiseService("/is_hit", &tf_pub::isHit, &hp_tf);

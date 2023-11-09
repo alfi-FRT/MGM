@@ -87,20 +87,12 @@ struct tf_pub{
 
 };
 
-// Subscriber to the coordinates topic
-void coordinatesCallback(const std_msgs::String::ConstPtr& msg)
-{
-   ROS_INFO("I heard: [%s]", msg->data.c_str());
-}
-
-
 
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "master_node");
     ros::NodeHandle n("~");
     tf_pub hp_tf(n);
-    ros::Publisher pub = n.advertise<std_msgs::String>("master_topic", 1000);
     std::vector<ros::Subscriber> subs(2);
         for(int i = 0; i < 2; i++){
             std::string vehicle_number = std::to_string(i+1);
@@ -112,10 +104,6 @@ int main(int argc, char **argv)
     ros::Rate r(100);
     while (ros::ok())
     {
-        std_msgs::String msg;
-        msg.data = "Itt vagyok!";
-        pub.publish(msg);
-        ros::Subscriber sub = n.subscribe("coordinates", 1000, coordinatesCallback);
         ros::spinOnce();
         r.sleep();
     }

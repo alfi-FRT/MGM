@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <iostream>
+#include <stdlib.h>
 #include <std_msgs/String.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TransformStamped.h>
@@ -121,7 +122,9 @@ struct visualizer{
         marker.header.stamp = ros::Time();			
         marker.header.frame_id = vehicle_name + "/base_link";			
         marker.action = visualization_msgs::Marker::ADD;			
-        marker.lifetime = ros::Duration(0.1);			
+        marker.lifetime = ros::Duration(0.1);
+        char vehicle_number = vehicle_name.back();
+        marker.id = atoi(&vehicle_number);			
         marker.ns = "bounding_box";			
         marker.type = visualization_msgs::Marker::CUBE;			
         marker.pose.position.x = 0;			
@@ -180,15 +183,15 @@ int main(int argc, char **argv)
             srv.request.hit_location = tf_publisher.hitpoint_global;
             srv.request.vehicle_name = vehicle_name;
             ros::service::call("/is_hit", srv);
-            ROS_INFO("Hit:%d\n", srv.response.is_hit.data);
+            //ROS_INFO("Hit:%d\n", srv.response.is_hit.data);
             
             //client.call(srv);
         }
         else
         {
-            ROS_INFO("Not shooting");
+            //ROS_INFO("Not shooting");
         }
-        ROS_INFO("%d",shoot);
+        //ROS_INFO("%d",shoot);
         ros::spinOnce();
         r.sleep();
     }

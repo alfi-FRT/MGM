@@ -129,7 +129,7 @@ struct visualizer{
         marker.type = visualization_msgs::Marker::CUBE;			
         marker.pose.position.x = 0;			
         marker.pose.position.y = 0;			
-        marker.pose.position.z = 0;		
+        marker.pose.position.z = 0.1;		
         marker.pose.orientation.w = 1.0;			
         marker.color.r = 0.0;			
         marker.color.g = 0.0;			
@@ -137,7 +137,7 @@ struct visualizer{
         marker.color.a = 1.0;			
         marker.scale.x = 0.25;			
         marker.scale.y = 0.2;			
-        marker.scale.z = 0.55;
+        marker.scale.z = 0.2;
     }
 
     void pub_bounding_box(visualization_msgs::Marker& marker){

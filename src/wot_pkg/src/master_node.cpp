@@ -70,15 +70,15 @@ struct tf_pub{
 
     void markerCallback(const visualization_msgs::Marker::ConstPtr& msg )
     {
-        //auto i = msg -> id;
+        auto i = msg -> id;
         global_marker_array.markers.push_back(*msg);
-        /*if(global_marker_array.markers.size() > 1){
+        if(global_marker_array.markers.size() > 1){
             for (int j = 0; j < global_marker_array.markers.size()-1; j++){
                 if (global_marker_array.markers[j].id == i){
-                    global_marker_array.markers.erase(global_marker_array.markers.begin()+j-1);
+                    global_marker_array.markers.erase(global_marker_array.markers.begin()+j);
                 }
             }
-        }*/
+        }
     }
 
     bool isHit(wot_pkg::is_hit::Request &req, wot_pkg::is_hit::Response &res)

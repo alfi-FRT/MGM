@@ -11,14 +11,14 @@
 		<arg name="world_name" value="$(find hamster_vehicle_gazebo)/worlds/cogni_office.world"/>
 	</include>
 
-	<include file="$(find wot_pkg)/launch/vehicle1.launch">
+	<include file="$(find wot_pkg)/launch/vehicle.launch">
     	<arg name="agent" value="vehicle1"/>
 		<arg name="x" value="0.0"/>	
 		<arg name="y" value="0.0"/>
 		<arg name="z" value="0.0"/>
-	</include>
+			</include>
 
-	<include file="$(find wot_pkg)/launch/vehicle1.launch">
+	<include file="$(find wot_pkg)/launch/vehicle.launch">
     	<arg name="agent" value="vehicle2"/>
 		<arg name="x" value="1.5"/>
 		<arg name="y" value="0.0"/>

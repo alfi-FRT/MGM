@@ -7,7 +7,7 @@
     <node pkg="wot_pkg" name="master_node" type="master_node" output="screen" />
 
     <include file="$(find hamster_vehicle_gazebo)/launch/hamster_world.launch">
-		<arg name="gui" value="false"/>
+		<arg name="gui" value="true"/>
 		<arg name="world_name" value="$(find hamster_vehicle_gazebo)/worlds/cogni_office.world"/>
 	</include>
 
@@ -16,7 +16,9 @@
 		<arg name="x" value="0.0"/>	
 		<arg name="y" value="0.0"/>
 		<arg name="z" value="0.0"/>
-			</include>
+		<arg name="use_keyboard_2" value="false"/>
+			
+	</include>
 
 	<include file="$(find wot_pkg)/launch/vehicle.launch">
     	<arg name="agent" value="vehicle2"/>

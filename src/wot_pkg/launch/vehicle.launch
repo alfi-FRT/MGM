@@ -7,6 +7,7 @@
     <arg name="y" default="0.0"/>
     <arg name="z" default="0.0"/>
     <arg name="use_keyboard" default="true"/>
+    <arg name="use_keyboard_2" default="true"/>
     
     
 
@@ -19,6 +20,7 @@
         <arg name="y" default="$(arg y)"/>
         <arg name="z" default="$(arg z)"/>
         <arg name="use_keyboard" default="$(arg use_keyboard)"/>
+        <arg name="use_keyboard_2" default="$(arg use_keyboard_2)"/>
         <param name="vehicle_name" value="$(arg agent)"/>
     </include>
 

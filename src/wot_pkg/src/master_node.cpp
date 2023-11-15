@@ -70,6 +70,8 @@ struct tf_pub{
 
     void markerCallback(const visualization_msgs::Marker::ConstPtr& msg )
     {
+        //std::map<int, visualization_msgs::Marker> data_map;
+        //data_map[i] = msg;
         auto i = msg -> id;
         global_marker_array.markers.push_back(*msg);
         if(global_marker_array.markers.size() > 1){

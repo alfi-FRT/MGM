@@ -4,6 +4,7 @@
 	<arg name="cmd_timeout" default="0.5"/>
 	<arg name="use_joystick" default="false" />
 	<arg name="use_keyboard" default="true" />
+	<arg name="use_keyboard_2" default="true" />
 	<arg name="joystick_dev" default="/dev/input/js0"/>
 	<arg name="x" default="0"/>
 	<arg name="y" default="0.0"/>
@@ -35,6 +36,14 @@
 		  
 		 <group if="$(arg use_keyboard)">
 			 <node pkg="hamster_teleop" type="keyboard.py" name="$(arg agent)_keyboard" output="screen">
+				<param name="topic" value="$(arg agent)/ackermann_cmd" />
+				<param name="frame" value="$(arg agent)/base_link" />
+				<param name="shooting_topic" value="$(arg agent)/shooting"/>
+			</node> 
+		 </group>
+
+		 <group if="$(arg use_keyboard_2)">
+			 <node pkg="hamster_teleop" type="keyboard_2.py" name="$(arg agent)_keyboard" output="screen">
 				<param name="topic" value="$(arg agent)/ackermann_cmd" />
 				<param name="frame" value="$(arg agent)/base_link" />
 				<param name="shooting_topic" value="$(arg agent)/shooting"/>

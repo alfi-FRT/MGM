@@ -14,6 +14,8 @@
 #include "wot_pkg/is_hit.h"
 #include <std_msgs_stamped/BoolStamped.h>
 #include <gazebo_msgs/ModelState.h>
+#include <gazebo_msgs/ModelStates.h>
+#include <random>
 
 
 std::string vehicle_name;
@@ -157,6 +159,16 @@ void shootCallBack(const std_msgs_stamped::BoolStamped msg)
     shoot=msg.data;
 }
 
+std::vector<geometry_msgs::Pose> model_poses;
+
+void modelsCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
+{
+    model_poses = msg -> pose;
+}
+
+
+
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv,"vehicle_node");
@@ -169,8 +181,11 @@ int main(int argc, char **argv)
     wot_pkg::is_hit srv;
     srv.request.hit_location = tf_publisher.hitpoint_global;
     ros::Publisher move_pub = n.advertise<gazebo_msgs::ModelState>("/gazebo/set_model_state", 1000);
+    ros::Subscriber models_sub = n.subscribe("/gazebo/model_states", 1000, modelsCallback);
 
     ros::Rate r(100);
+
+    
 
     visualization_msgs::Marker bounding_box_marker;
     visualizer visualize_bounding_box(n, bounding_box_marker);
@@ -191,14 +206,31 @@ int main(int argc, char **argv)
                 ROS_INFO("Hit:%d\n", srv.response.is_hit.data);
                 if (srv.response.is_hit.data != -1)
                 {
+                    bool is_occupied = false;
+                    double x = 0;
+                    double y = 0;
+                    do
+                    {   //random double generation, source: https://stackoverflow.com/questions/2704521/generate-random-double-numbers-in-c
+                        std::uniform_real_distribution<double> distribution(-10.0, 10.0);
+                        std::default_random_engine generator(std::time(0));
+                        x = distribution(generator);
+                        y = distribution(generator);
+                        is_occupied = false;
+                        for(int i = 0; i < model_poses.size(); i++)
+                        {
+                            if (model_poses[i].position.x <= x + 0.5 && model_poses[i].position.x >= x - 0.5 && 
+                                model_poses[i].position.y <= y + 0.5 && model_poses[i].position.y >= y - 0.5)
+                            {
+                                is_occupied = true;
+                            }
+                        }
+
+                    }while(is_occupied);
+
                     gazebo_msgs::ModelState new_spawn_state;
                     new_spawn_state.model_name = "vehicle" + std::to_string(srv.response.is_hit.data);
-                    new_spawn_state.pose.position.x = 0;
-                    new_spawn_state.pose.position.y = 0;
-                    new_spawn_state.pose.position.z = 0;
-                    new_spawn_state.pose.orientation.x = 0;
-                    new_spawn_state.pose.orientation.y = 0;
-                    new_spawn_state.pose.orientation.z = 0;
+                    new_spawn_state.pose.position.x = x;
+                    new_spawn_state.pose.position.y = y;
                     new_spawn_state.pose.orientation.w = 1;
                     new_spawn_state.reference_frame = "map";
                     move_pub.publish(new_spawn_state);

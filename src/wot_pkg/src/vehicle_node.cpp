@@ -13,6 +13,7 @@
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include "wot_pkg/is_hit.h"
 #include <std_msgs_stamped/BoolStamped.h>
+#include <gazebo_msgs/ModelState.h>
 
 
 std::string vehicle_name;
@@ -167,7 +168,7 @@ int main(int argc, char **argv)
     ros::ServiceClient client = n.serviceClient<wot_pkg::is_hit>("/is_hit");
     wot_pkg::is_hit srv;
     srv.request.hit_location = tf_publisher.hitpoint_global;
-
+    ros::Publisher move_pub = n.advertise<gazebo_msgs::ModelState>("/gazebo/set_model_state", 1000);
 
     ros::Rate r(100);
 
@@ -188,7 +189,20 @@ int main(int argc, char **argv)
                 last_shoot_time = ros::Time::now();
                 ros::service::call("/is_hit", srv);
                 ROS_INFO("Hit:%d\n", srv.response.is_hit.data);
-                
+                if (srv.response.is_hit.data != -1)
+                {
+                    gazebo_msgs::ModelState new_spawn_state;
+                    new_spawn_state.model_name = "vehicle" + std::to_string(srv.response.is_hit.data);
+                    new_spawn_state.pose.position.x = 0;
+                    new_spawn_state.pose.position.y = 0;
+                    new_spawn_state.pose.position.z = 0;
+                    new_spawn_state.pose.orientation.x = 0;
+                    new_spawn_state.pose.orientation.y = 0;
+                    new_spawn_state.pose.orientation.z = 0;
+                    new_spawn_state.pose.orientation.w = 1;
+                    new_spawn_state.reference_frame = "map";
+                    move_pub.publish(new_spawn_state);
+                }
             } 
 
         }

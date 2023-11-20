@@ -86,7 +86,6 @@ struct tf_pub{
     bool isHit(wot_pkg::is_hit::Request &req, wot_pkg::is_hit::Response &res)
     {
         res.is_hit.data = whichHit(req.hit_location, global_marker_array);
-        ROS_INFO("%d \n \n",res.is_hit.data);
         return true;
     }
 

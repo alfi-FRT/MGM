@@ -16,6 +16,7 @@
 
 
 std::string vehicle_name;
+ros::Time last_shoot_time;
 
 struct tf_pub{
 
@@ -172,7 +173,7 @@ int main(int argc, char **argv)
 
     visualization_msgs::Marker bounding_box_marker;
     visualizer visualize_bounding_box(n, bounding_box_marker);
-    
+    last_shoot_time = ros::Time::now();
     
     while (ros::ok())
     {
@@ -182,16 +183,16 @@ int main(int argc, char **argv)
         {
             srv.request.hit_location = tf_publisher.hitpoint_global;
             srv.request.vehicle_name = vehicle_name;
-            ros::service::call("/is_hit", srv);
-            //ROS_INFO("Hit:%d\n", srv.response.is_hit.data);
-            
-            //client.call(srv);
+            if(ros::Time::now()-last_shoot_time > ros::Duration(5.0))
+            {
+                last_shoot_time = ros::Time::now();
+                ros::service::call("/is_hit", srv);
+                ROS_INFO("Hit:%d\n", srv.response.is_hit.data);
+                
+            } 
+
         }
-        else
-        {
-            //ROS_INFO("Not shooting");
-        }
-        //ROS_INFO("%d",shoot);
+
         ros::spinOnce();
         r.sleep();
     }

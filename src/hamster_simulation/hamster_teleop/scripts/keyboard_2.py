@@ -52,7 +52,7 @@ class AckermannDriveKeyop:
         # Shooting publisher
         self.shooting_pub = rospy.Publisher(
             self.shooting_topic, BoolStamped, queue_size=1) 
-        rospy.Timer(rospy.Duration(1.0/5.0), self.pub_callback, oneshot=False)
+        rospy.Timer(rospy.Duration(1.0/10.0), self.pub_callback, oneshot=False)
         rospy.on_shutdown(self.finalize)
         #self.print_state()
         self.key_loop()
@@ -116,7 +116,7 @@ class AckermannDriveKeyop:
                         self.steering_angle,
                         self.steering_angle_range[0],
                         self.steering_angle_range[1])
-                self.print_state()
+                #self.print_state()
             elif key == '\x03' or key == '\x71':  # ctr-c or q
                 rospy.signal_shutdown("Force shutdown.") 
             else:

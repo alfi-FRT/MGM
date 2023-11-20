@@ -14,18 +14,18 @@ control_keys = {
     'down'  : '\x42',
     'right' : '\x43',
     'left'  : '\x44',
-    'space' : '\x20',
-    'tab'   : '\x09',
-    'r'     : '\x72'}
+    'period'     : '\x2E',
+    'comma'     : '\x2C',
+    'p'     : '\x70'}
 
 key_bindings = {
     '\x41' : ( 0.5 , 0.0),
     '\x42' : (-0.5 , 0.0),
     '\x43' : ( 0.0 ,-0.1),
     '\x44' : ( 0.0 , 0.1),
-    '\x20' : ( 0.0 , 0.0),
-    '\x09' : ( 0.0 , 0.0),
-    '\x72' : ( 0.0 , 0.0)}
+    '\x2E' : ( 0.0 , 0.0),
+    '\x2C' : ( 0.0 , 0.0),
+    '\x70' : ( 0.0 , 0.0)}
 
 
 class AckermannDriveKeyop:
@@ -52,7 +52,7 @@ class AckermannDriveKeyop:
         # Shooting publisher
         self.shooting_pub = rospy.Publisher(
             self.shooting_topic, BoolStamped, queue_size=1) 
-        rospy.Timer(rospy.Duration(1.0/5.0), self.pub_callback, oneshot=False)
+        rospy.Timer(rospy.Duration(1.0/10.0), self.pub_callback, oneshot=False)
         rospy.on_shutdown(self.finalize)
         #self.print_state()
         self.key_loop()
@@ -77,8 +77,8 @@ class AckermannDriveKeyop:
         sys.stderr.write('\x1b[2J\x1b[H')
         rospy.loginfo('\x1b[1M\r*********************************************')
         rospy.loginfo('\x1b[1M\rUse arrows to change speed and steering angle')
-        rospy.loginfo('\x1b[1M\rUse space to brake and tab to align wheels')
-        rospy.loginfo('\x1b[1M\rUse r to shoot')
+        rospy.loginfo('\x1b[1M\rUse comma to brake and period to align wheels')
+        rospy.loginfo('\x1b[1M\rUse p to shoot')
         rospy.loginfo('\x1b[1M\rPress <ctrl-c> or <q> to exit')
         rospy.loginfo('\x1b[1M\r*********************************************')
         rospy.loginfo('\x1b[1M\r'
@@ -99,12 +99,12 @@ class AckermannDriveKeyop:
         while not rospy.is_shutdown():
             key = self.get_key()
             if key in key_bindings.keys():
-                if key == control_keys['space']:
+                if key == control_keys['period']:
                     self.speed = 0.0
-                elif key == control_keys['tab']:
+                elif key == control_keys['comma']:
                     self.steering_angle = 0.0
                 # 
-                elif key == control_keys['r']:
+                elif key == control_keys['p']:
                     self.shooting = True
                 else:
                     self.speed = self.speed + key_bindings[key][0]

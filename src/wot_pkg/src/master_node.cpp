@@ -13,18 +13,19 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include "wot_pkg/is_hit.h"
+#include <std_msgs_stamped/Int32Stamped.h>
 
 
 struct tf_pub{
 
     tf_pub(ros::NodeHandle n_):n(n_),tfListener(tfBuffer)
     {
-
+        scoreboard_pub = n.advertise<std_msgs::String>("scoreboard", 1000);
 	}
 	~tf_pub(){}
 
     geometry_msgs::PoseStamped hitpoint_relative;
-
+    int scores[2] = {0,0};
 
     geometry_msgs::PoseStamped tf_hitpoint(geometry_msgs::PoseStamped msg, ros::Time tmstamp, std_msgs::Int32 i){
         std::string vehicle_number = std::to_string(i.data+1);
@@ -89,11 +90,25 @@ struct tf_pub{
         return true;
     }
 
+    void displayScoreboard(std_msgs_stamped::Int32Stamped msg)
+    {
+        if (msg.header.frame_id == "vehicle1"){
+            scores[0] = msg.data;
+        }
+        else if (msg.header.frame_id == "vehicle2"){
+            scores[1] = msg.data;
+        }
+        scoreboard.data = "The current score is: Player 1: " + std::to_string(scores[0]) + " Player 2: " + std::to_string(scores[1]);
+        scoreboard_pub.publish(scoreboard);
+    }
+
     tf2_ros::Buffer tfBuffer;
     tf2_ros::TransformBroadcaster broadcaster;
     
     ros::NodeHandle n;
+    ros::Publisher scoreboard_pub;
     tf2_ros::TransformListener tfListener;
+    std_msgs::String scoreboard;
 
 };
 
@@ -105,12 +120,15 @@ int main(int argc, char **argv)
     tf_pub hp_tf(n);
     //ros::Publisher pub = n.advertise<visualization_msgs::MarkerArray>("global_marker_array", 1000);
     std::vector<ros::Subscriber> subs(2);
+    std::vector<ros::Subscriber> hit_subs(2);
         for(int i = 0; i < subs.size(); i++){
             std::string vehicle_number = std::to_string(i+1);
             std::string topic_name = "/vehicle" + vehicle_number + "/bounding_box";
             subs[i] = n.subscribe(topic_name, 1000, &tf_pub::markerCallback, &hp_tf);
+            hit_subs[i] = n.subscribe("/vehicle" + vehicle_number + "/hit_count", 1000, &tf_pub::displayScoreboard, &hp_tf);
         }
     ros::ServiceServer service = n.advertiseService("/is_hit", &tf_pub::isHit, &hp_tf);
+
     
     ros::Rate r(100);
     while (ros::ok())

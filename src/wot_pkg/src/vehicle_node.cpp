@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <std_msgs/String.h>
+#include <std_msgs_stamped/Int32Stamped.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <visualization_msgs/Marker.h>
@@ -167,6 +168,8 @@ void modelsCallback(const gazebo_msgs::ModelStates::ConstPtr& msg)
 }
 
 
+int hit_count = 0;
+std_msgs_stamped::Int32Stamped hit_count_msg;
 
 
 int main(int argc, char **argv)
@@ -182,6 +185,7 @@ int main(int argc, char **argv)
     srv.request.hit_location = tf_publisher.hitpoint_global;
     ros::Publisher move_pub = n.advertise<gazebo_msgs::ModelState>("/gazebo/set_model_state", 1000);
     ros::Subscriber models_sub = n.subscribe("/gazebo/model_states", 1000, modelsCallback);
+    ros::Publisher hit_cnt = n.advertise<std_msgs_stamped::Int32Stamped>("hit_count", 1000);
 
     ros::Rate r(100);
 
@@ -234,6 +238,10 @@ int main(int argc, char **argv)
                     new_spawn_state.pose.orientation.w = 1;
                     new_spawn_state.reference_frame = "map";
                     move_pub.publish(new_spawn_state);
+                    hit_count++;
+                    hit_count_msg.data = hit_count;
+                    hit_count_msg.header.frame_id = vehicle_name;
+                    hit_cnt.publish(hit_count_msg);
                 }
             } 
 

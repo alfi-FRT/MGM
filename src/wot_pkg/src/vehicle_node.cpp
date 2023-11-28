@@ -202,7 +202,6 @@ int main(int argc, char **argv)
         if (shoot)
         {
             srv.request.hit_location = tf_publisher.hitpoint_global;
-            srv.request.vehicle_name = vehicle_name;
             if(ros::Time::now()-last_shoot_time > ros::Duration(5.0))
             {
                 last_shoot_time = ros::Time::now();

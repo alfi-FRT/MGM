@@ -2,7 +2,6 @@
 #include <iostream>
 #include <std_msgs/String.h>
 #include <std_msgs/Int32.h>
-#include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <visualization_msgs/Marker.h>
@@ -71,8 +70,6 @@ struct tf_pub{
 
     void markerCallback(const visualization_msgs::Marker::ConstPtr& msg )
     {
-        //std::map<int, visualization_msgs::Marker> data_map;
-        //data_map[i] = msg;
         auto i = msg -> id;
         global_marker_array.markers.push_back(*msg);
         if(global_marker_array.markers.size() > 1){
@@ -118,7 +115,6 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "master_node");
     ros::NodeHandle n("~");
     tf_pub hp_tf(n);
-    //ros::Publisher pub = n.advertise<visualization_msgs::MarkerArray>("global_marker_array", 1000);
     std::vector<ros::Subscriber> subs(2);
     std::vector<ros::Subscriber> hit_subs(2);
         for(int i = 0; i < subs.size(); i++){
@@ -133,7 +129,6 @@ int main(int argc, char **argv)
     ros::Rate r(100);
     while (ros::ok())
     {
-        //pub.publish(hp_tf.global_marker_array);
         ros::spinOnce();
         r.sleep();
     }
